@@ -1,0 +1,29 @@
+:root {
+  --banana-cream: #FEF389;
+  --dusty-olive: #7B8271;
+  --ink-black: #011E2C;
+  --deep-space-blue: #022E46;
+  --cream-bg: #FDF8D0;
+  --light-cream: #FFFAC9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Encode Sans Semi Expanded', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  width: 100vw;
+  min-height: 100vh;
+}
