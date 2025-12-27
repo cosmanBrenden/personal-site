@@ -23,11 +23,11 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
 
   return (
     <div className="blog-detail-page">
-      <img 
+      {/* <img 
         className="blog-detail-background" 
         src="https://api.builder.io/api/v1/image/assets/TEMP/592ed22dc9aa08d84885076a5f619cab47078079?width=3840" 
         alt="" 
-      />
+      /> */}
 
       <div className="blog-window-overlay">
         <div className="blog-window">

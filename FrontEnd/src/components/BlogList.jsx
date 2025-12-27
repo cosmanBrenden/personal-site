@@ -24,11 +24,11 @@ const BlogList = () => {
 
   return (
     <div className="blog-list-page">
-      <img 
+      {/* <img 
         className="blog-list-background" 
         src="https://api.builder.io/api/v1/image/assets/TEMP/824d82dc41bf77d539c48199e521c1c3a5d13018?width=3840" 
         alt="" 
-      />
+      /> */}
 
       <div className="search-bar-container">
         <svg className="search-bar-glow" width="1497" height="354" viewBox="0 0 1497 354" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -13,16 +13,16 @@ const LandingPage = () => {
         alt="" 
       /> */}
 
-      <video
+      {/* <video
         autoPlay
         loop
         muted
         className='background-image'
         src="https://www.w3schools.com/howto/rain.mp4"
         alt=""
-      />
+      /> */}
       
-      <svg className="star-background" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* <svg className="star-background" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="filter0_df" x="360" y="-20" width="1200" height="1120" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
             <feFlood floodOpacity="0" result="BackgroundImageFix"/>
@@ -54,7 +54,7 @@ const LandingPage = () => {
         <g filter="url(#filter1_df)">
           <path d="M960 0L985.477 500.369C985.588 502.562 987.941 503.896 989.88 502.866L1638.82 158.162L1031.16 520.128C1028.56 521.674 1029.63 525.656 1032.65 525.705L1920 540L1032.65 554.295C1029.63 554.344 1028.57 558.326 1031.16 559.872L1638.82 921.838L989.88 577.134C987.941 576.104 985.588 577.438 985.477 579.631L960 1080L934.523 579.631C934.412 577.438 932.059 576.104 930.12 577.134L281.177 921.838L888.838 559.872C891.435 558.326 890.373 554.344 887.351 554.295L0 540L887.351 525.705C890.373 525.656 891.435 521.674 888.838 520.128L281.177 158.162L930.12 502.866C932.059 503.896 934.412 502.562 934.523 500.369L960 0Z" fill="#FEF389"/>
         </g>
-      </svg>
+      </svg> */}
 
       <h1 className="blog-title">Brenden's Blog</h1>
 

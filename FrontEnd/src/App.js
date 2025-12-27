@@ -11,6 +11,14 @@ function App() {
   return (
     <Router>
       <div className="app">
+        <video
+        autoPlay
+        loop
+        muted
+        className='background-image'
+        src="https://www.w3schools.com/howto/rain.mp4"
+        alt=""
+      />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/blog-list" element={<BlogList />} />
