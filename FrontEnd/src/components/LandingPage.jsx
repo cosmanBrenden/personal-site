@@ -7,10 +7,19 @@ const LandingPage = () => {
 
   return (
     <div className="landing-page">
-      <img 
+      {/* <img 
         className="background-image" 
         src="https://api.builder.io/api/v1/image/assets/TEMP/f7255df04dc17839318c44ec17a1f64cf461d36e?width=3840" 
         alt="" 
+      /> */}
+
+      <video
+        autoPlay
+        loop
+        muted
+        className='background-image'
+        src="https://www.w3schools.com/howto/rain.mp4"
+        alt=""
       />
       
       <svg className="star-background" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
