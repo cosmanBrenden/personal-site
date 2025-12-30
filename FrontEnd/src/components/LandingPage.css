@@ -32,10 +32,10 @@
   font-family: 'Ephesis', -apple-system, Roboto, Helvetica, sans-serif;
   font-weight: 400;
   font-size: clamp(80px, 12.5vw, 240px);
-  color: rgba(255, 248, 185, 0.55);
-  fill: rgba(255, 248, 185, 0.55);
+  color: color-mix(in srgb, var(--border) 55%, transparent);
+  fill: color-mix(in srgb, var(--border) 55%, transparent);
   -webkit-text-stroke: 2px #000;
-  filter: drop-shadow(0 0 100px rgba(254, 243, 137, 0.25));
+  filter: drop-shadow(0 0 100px color-mix(in srgb, var(--border) 25%, transparent));
   position: absolute;
   top: 59px;
   left: 50%;

@@ -1,9 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react'; 
 import LandingPage from './components/LandingPage';
 import BlogList from './components/BlogList';
 import BlogDetail from './components/BlogDetail';
 import './App.css';
+
 
 
 
@@ -18,7 +20,12 @@ function App() {
         className='background-image'
         src="https://www.w3schools.com/howto/rain.mp4"
         alt=""
-      />
+        />
+    <div class="triangle top-left"></div>
+    <div class="triangle top-right"></div>
+    <div class="triangle bottom-left"></div>
+    <div class="triangle bottom-right"></div>
+    <div className='animation'/>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/blog-list" element={<BlogList />} />

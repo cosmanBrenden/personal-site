@@ -2,15 +2,103 @@
   width: 100%;
   min-height: 100vh;
   background: #000;
+  overflow-y: clip;
+  overflow-x: clip;
+  filter:sepia(80%);
 }
 
 .background-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 200px;
+
   filter: blur(5px);
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
+}
+
+
+.triangle {
+  position: fixed;
+  width: 150px;
+  height: 150px;
+  background: #000;
+  pointer-events: none;
+  z-index: 9999;
+}
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  mask: radial-gradient(circle at 0% 0%, transparent 70%, black 75%);
+  -webkit-mask: radial-gradient(circle at 0% 0%, transparent 70%, black 75%);
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  mask: radial-gradient(circle at 100% 0%, transparent 70%, black 75%);
+  -webkit-mask: radial-gradient(circle at 100% 0%, transparent 70%, black 75%);
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+  mask: radial-gradient(circle at 0% 100%, transparent 70%, black 75%);
+  -webkit-mask: radial-gradient(circle at 0% 100%, transparent 70%, black 75%);
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+  mask: radial-gradient(circle at 100% 100%, transparent 70%, black 75%);
+  -webkit-mask: radial-gradient(circle at 100% 100%, transparent 70%, black 75%);
+}
+
+
+
+
+/* .animation {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  background-image: repeating-radial-gradient(circle at 17% 32%, white, black 0.01px);
+  background-position: center;
+  animation: back 5s linear infinite;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.2;
+  display: block;
+}
+
+@keyframes back {
+    from {
+    background-size: 100% 100%;
+  }
+  to {
+    background-size: 200% 200%;
+  }
+} */
+
+.animation {
+  width: 150%;
+  height: 150%;
+  overflow: hidden;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 8%;
+
+  background-image: url("noise.png");
+  inset: -20%;
+  animation: shift 0.125s linear infinite both;
+}
+@keyframes shift{
+  0% {
+    transform: translateX(10%) translateY(10%)
+  }
+  100%{
+    transform: translateX(-10%) translateY(-10%);
+  }
 }
