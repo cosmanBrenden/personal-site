@@ -41,7 +41,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  padding-left: 7px;
+  padding-right: 7px;
 }
 
 .blog-window {
@@ -50,7 +53,10 @@
   min-height: 980px;
   border-radius: 50px;
   border: 5px solid var(--border);
-  background: var(--text-bg);
+  background-color: var(--text-bg);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--base-light) 75%, transparent), var(--text-bg) 110%
+  );
   box-shadow: 0 4px 100px 20px color-mix(in srgb, var(--border) 25%, transparent);
   position: relative;
   padding: 94px clamp(20px, 8.6vw, 166px);
@@ -58,15 +64,17 @@
 }
 
 .back-button {
-  width: 48px;
-  height: 48px;
+  width: clamp(24px, 36px, 48px);
+  height: clamp(24px, 36px, 48px);
   position: absolute;
   left: clamp(20px, 5vw, 97px);
   top: 75px;
-  background: transparent;
-  border: none;
+  background: color-mix(in srgb, var(--base-light) 50%, transparent);
+  box-shadow: 0 0 5px #C8C8C8;
+  border: 2px;
   cursor: pointer;
   transition: transform 0.3s ease;
+  color: var(--text-color);
 }
 
 .back-button:hover {
@@ -74,21 +82,23 @@
 }
 
 .blog-detail-title {
-  color: #000;
+  color: var(--text-color);
   text-align: center;
-  font-family: 'Encode Sans Semi Expanded', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family: Inconsolata, monospace;
+  text-shadow: 0 0 5px #C8C8C8;
   font-size: clamp(30px, 2.08vw, 40px);
   font-style: normal;
-  font-weight: 600;
+  font-weight: 1000;
   line-height: 24px;
   letter-spacing: 0.5px;
   margin-bottom: 40px;
 }
 
 .blog-detail-content {
-  color: #011E2C;
+  color: var(--text-color);
   text-align: center;
-  font-family: 'Encode Sans Semi Expanded', -apple-system, Roboto, Helvetica, sans-serif;
+  font-family: Inconsolata, monospace;
+  text-shadow: 0 0 5px #C8C8C8;
   font-size: clamp(16px, 1.04vw, 20px);
   font-style: normal;
   font-weight: 400;
@@ -99,9 +109,22 @@
   margin: 0 auto;
 }
 
+.blog-detail-content>h1{
+  font-size: clamp(24px, 1.54vw, 30px);
+  font-weight: 800;
+}
+
+.blog-detail-content>h2{
+  font-size: clamp(22px, 1.34vw, 26px);
+  font-weight: 600;
+}
+
+
+
 @media (max-width: 768px) {
   .blog-window-overlay {
-    padding: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
   }
   
   .blog-window {

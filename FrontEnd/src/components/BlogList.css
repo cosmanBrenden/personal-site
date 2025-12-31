@@ -11,7 +11,7 @@
 
 .blog-grid-container {
   width: 100%;
-  padding: clamp(30px, 10vw, 194px) clamp(20px, 4vw, 76px);
+  padding: clamp(15vh, 10vw, 194px) clamp(20px, 4vw, 76px);
   position: relative;
   z-index: 1;
 }
@@ -21,7 +21,8 @@
   grid-template-columns: repeat(auto-fill, minmax(300px, 384px));
   gap: clamp(40px, 4vw, 76px);
   justify-content: center;
-  max-width: 1840px;
+  /* max-width: 1840px; */
+  max-width: 95vw;
   margin: 0 auto;
 }
 
@@ -34,4 +35,40 @@
   .search-input-wrapper {
     width: 90%;
   }
+}
+
+.home-button-wrapper{
+  width: 60px;
+  height: 60px;
+  z-index: 200;
+  border-radius: 20px;
+  border: 5px solid var(--border);
+  background-color: var(--text-bg);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--base-light) 75%, transparent), var(--text-bg) 110%
+  );
+  box-shadow: 0 4px 100px 10px color-mix(in srgb, var(--border) 25%, transparent);
+  position: fixed;
+  left:calc(15% - 50px);
+  top:45px;
+  /* padding: 0 20px; */
+  transition: transform 0.3s ease;
+}
+
+.home-button{
+  color: var(--text-color);
+  background: color-mix(in srgb, var(--base-light) 50%, transparent);
+  box-shadow: 0 0 20px #C8C8C8;
+  letter-spacing: 0.5px;
+  border-radius: 5px;
+  border:2px;
+  transition: background-color 0.3s ease;
+  position: absolute;
+  top:25%;
+  left: 25%;
+}
+
+.home-button-wrapper:hover{
+    background-color: var(--base-light);
+    
 }

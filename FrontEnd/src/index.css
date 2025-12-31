@@ -1,9 +1,19 @@
-:root {
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
+
+/* :root {
   --base-light: #FEF389;
   --border: #7B8271;
   --text-color: #011E2C;
   --base-dark: #022E46;
   --text-bg: #FDF8D0;
+} */
+
+:root {
+  --base-light: #74bd72;
+  --border: #6b8c5e;
+  --text-color: #c0f5ab;
+  --base-dark: #4E6151;
+  --text-bg: #020202;
 }
 
 * {

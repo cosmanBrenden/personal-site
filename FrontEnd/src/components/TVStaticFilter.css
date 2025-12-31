@@ -1,0 +1,78 @@
+.triangle {
+  position: fixed;
+  width: 12.5vh;
+  height: 12.5vh;
+  background: #000;
+  pointer-events: none;
+  z-index: 9999;
+}
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  mask: radial-gradient(circle at 0% 0%, transparent 70%, black 75%);
+  -webkit-mask: radial-gradient(circle at 0% 0%, transparent 70%, black 75%);
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  mask: radial-gradient(circle at 100% 0%, transparent 70%, black 75%);
+  -webkit-mask: radial-gradient(circle at 100% 0%, transparent 70%, black 75%);
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+  mask: radial-gradient(circle at 0% 100%, transparent 70%, black 75%);
+  -webkit-mask: radial-gradient(circle at 0% 100%, transparent 70%, black 75%);
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+  mask: radial-gradient(circle at 100% 100%, transparent 70%, black 75%);
+  -webkit-mask: radial-gradient(circle at 100% 100%, transparent 70%, black 75%);
+}
+
+
+
+.animation {
+  width: 150%;
+  height: 150%;
+  overflow: hidden;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 5%;
+
+  background-image: url("../../public/noise.png");
+  inset: -20%;
+  animation: shift 0.125s linear infinite both;
+}
+@keyframes shift{
+  0% {
+    transform: translateX(10%) translateY(10%)
+  }
+  100%{
+    transform: translateX(-10%) translateY(-10%);
+  }
+}
+
+.overlay {
+  position: fixed; 
+  width: 100%; 
+  height: 100%; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 50%;
+  background-color: rgb(75, 75, 75);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--base-light) 75%, transparent), rgb(75, 75, 75) 160%
+  );
+  /* background-color: color-mix(in srgb, var(--base-light) 30%, transparent);  */
+  z-index: 9997; 
+  cursor: pointer; 
+}
