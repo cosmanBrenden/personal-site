@@ -1,75 +1,131 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BlogTile from './BlogTile';
+import Tile from './Tile';
+import SearchBar from './SearchBar';
 import './BlogList.css';
+import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import SwapVertIcon from '@mui/icons-material/SwapVert';
+import HomeIcon from '@mui/icons-material/Home';
 
 const BlogList = () => {
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
+  const [barText, setBarText] = useState("");
+  const [isInit, setIsInit] = useState(false);
+  const [shouldReverse, setShouldReverse] = useState(false);
+  const [sortByTitle, setSortByTitle] = useState(false);
+  const [blogPosts, setBlogPosts] = useState([
+    { id: 0, title: 'Lorem ipsum 0', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' , date: 1691622800},
+    { id: 1, title: 'Lorem ipsum 1', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-1 },
+    { id: 2, title: 'Lorem ipsum 2', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-2 },
+    { id: 3, title: 'Lorem ipsum 3', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-3 },
+    { id: 4, title: 'Lorem ipsum 4', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-4 },
+    { id: 5, title: 'Lorem ipsum 5', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-5 },
+    { id: 6, title: 'Lorem ipsum 6', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-6 },
+    { id: 7, title: 'Lorem ipsum 7', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-7 },
+    { id: 8, title: 'Lorem ipsum 8', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-8 },
+    { id: 9, title: 'Lorem ipsum 9', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-9 },
+    { id: 10, title: 'Lorem ipsum 10', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-10 },
+    { id: 11, title: 'Lorem ipsum 11', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-11 },
+    { id: 12, title: 'Lorem ipsum 12', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly', date: 1691622800-12 },
+  ]);
 
-  const blogPosts = [
-    { id: 1, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-    { id: 2, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-    { id: 3, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-    { id: 4, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-    { id: 5, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-    { id: 6, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-    { id: 7, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-    { id: 8, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-    { id: 9, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-    { id: 10, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-    { id: 11, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-    { id: 12, title: 'Lorem ipsum', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' },
-  ];
+  useEffect(() => {
+
+    const urlParams = new URLSearchParams(window.location.search);
+    let tags = urlParams.get('tags');
+    if(!tags){
+      tags = ""
+    }
+    setSearchText(tags);
+    setBarText(tags);
+    handleSort();
+    setIsInit(true);
+  }, [])
+
+  useEffect(() => {
+    handleSort();
+  }, [sortByTitle]);
+
+  useEffect(() =>{
+    if(!isInit){
+      return
+    }
+
+    let withoutSpaces = searchText.replaceAll(" ", "");
+    if(withoutSpaces){
+      navigate("/blog-list?tags=" + withoutSpaces);
+    }
+    else{
+      navigate("/blog-list")
+    }
+  },[searchText, isInit])
+
+  const handleSearch = () => {
+    setSearchText(barText)
+  };
+ 
+  const handleKeyPress = (e) => {
+    // Check if the pressed key is 'Enter'
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
+  const handleSortToggle = (opt) => {
+    setSortByTitle(opt);
+  }
+
+  const handleRevToggle = () => {
+    setShouldReverse(!shouldReverse);
+    handleReverse();
+  }
+
+  const handleReverse = () => {
+    let blogs = [...blogPosts]
+    blogs.reverse();
+    setBlogPosts([...blogs]);
+  }
+
+  const handleSort = () => {
+    let blogs = [...blogPosts];
+    setShouldReverse(false);
+    if(sortByTitle){
+      console.log("Sorting by title");
+      blogs = blogs.sort((a,b) => a.title.localeCompare(b.title));
+    }
+    else{
+      console.log("sorting by date")
+      blogs = blogs.sort((a,b) => a.date < b.date);
+    }
+    setBlogPosts([...blogs]);
+  }
 
   return (
     <div className="blog-list-page">
-      <img 
-        className="blog-list-background" 
-        src="https://api.builder.io/api/v1/image/assets/TEMP/824d82dc41bf77d539c48199e521c1c3a5d13018?width=3840" 
-        alt="" 
-      />
+      <div className='home-button-wrapper' onClick={() => navigate("/")}><HomeIcon className='home-button'/></div>
+      <SearchBar
+        barText={barText}
+        setBarText={setBarText}
+        handleKeyPress={handleKeyPress}
+        options ={[
+          <button key={0} className={sortByTitle ? "drop-down-button-highlight" : "drop-down-button"}onClick={() => handleSortToggle(true)}><SortByAlphaIcon/></button>,
+          <button key={1} className={!sortByTitle ? "drop-down-button-highlight" : "drop-down-button"} onClick={() => handleSortToggle(false)}><DateRangeIcon/></button>,
+          <button key={2} className={shouldReverse ? "drop-down-button-highlight" : "drop-down-button"} onClick={() => handleRevToggle()}><SwapVertIcon/></button>
+        ]}
 
-      <div className="search-bar-container">
-        <svg className="search-bar-glow" width="1497" height="354" viewBox="0 0 1497 354" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g filter="url(#filter0_df_search)">
-            <ellipse cx="748.5" cy="75" rx="548.5" ry="75" fill="#011E2C"/>
-          </g>
-          <defs>
-            <filter id="filter0_df_search" x="0" y="-196" width="1497" height="550" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-              <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-              <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-              <feMorphology radius="100" operator="dilate" in="SourceAlpha" result="effect1_dropShadow_search"/>
-              <feOffset dy="4"/>
-              <feGaussianBlur stdDeviation="50"/>
-              <feComposite in2="hardAlpha" operator="out"/>
-              <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
-              <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_search"/>
-              <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_search" result="shape"/>
-              <feGaussianBlur stdDeviation="15" result="effect2_foregroundBlur_search"/>
-            </filter>
-          </defs>
-        </svg>
-        
-        <div className="search-input-wrapper">
-          <input 
-            type="text" 
-            className="search-input" 
-            placeholder="Tags_" 
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-          />
-          <span className="search-icon">#</span>
-        </div>
-      </div>
+      />
+      {/* {showSortMenu ? <SortMenu
+      />: null} */}
 
       <div className="blog-grid-container">
         <div className="blog-grid">
           {blogPosts.map((post) => (
-            <BlogTile 
+            <Tile 
               key={post.id} 
-              post={post} 
-              onClick={() => navigate(`/blog/${post.id}`)} 
+              post={post}
+              clickFunc={() => navigate(`/blog/${post.id}?callback=${window.location.search}`)} 
             />
           ))}
         </div>

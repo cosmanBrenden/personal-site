@@ -1,64 +1,36 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
+import Tile from './Tile';
 
 const LandingPage = () => {
   const navigate = useNavigate();
 
   return (
     <div className="landing-page">
-      {/* <img 
-        className="background-image" 
-        src="https://api.builder.io/api/v1/image/assets/TEMP/f7255df04dc17839318c44ec17a1f64cf461d36e?width=3840" 
-        alt="" 
-      /> */}
-
-      <video
-        autoPlay
-        loop
-        muted
-        className='background-image'
-        src="https://www.w3schools.com/howto/rain.mp4"
-        alt=""
-      />
       
-      <svg className="star-background" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="filter0_df" x="360" y="-20" width="1200" height="1120" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-            <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-            <feMorphology radius="100" operator="dilate" in="SourceAlpha" result="effect1_dropShadow"/>
-            <feOffset/>
-            <feGaussianBlur stdDeviation="50"/>
-            <feComposite in2="hardAlpha" operator="out"/>
-            <feColorMatrix type="matrix" values="0 0 0 0 0.996078 0 0 0 0 0.952941 0 0 0 0 0.537255 0 0 0 0.25 0"/>
-            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-            <feGaussianBlur stdDeviation="50" result="effect2_foregroundBlur"/>
-          </filter>
-          <filter id="filter1_df" x="-100" y="-100" width="2120" height="1280" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-            <feFlood floodOpacity="0" result="BackgroundImageFix"/>
-            <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-            <feOffset/>
-            <feGaussianBlur stdDeviation="50"/>
-            <feComposite in2="hardAlpha" operator="out"/>
-            <feColorMatrix type="matrix" values="0 0 0 0 0.996078 0 0 0 0 0.952941 0 0 0 0 0.537255 0 0 0 0.25 0"/>
-            <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
-            <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
-            <feGaussianBlur stdDeviation="32.5" result="effect2_foregroundBlur"/>
-          </filter>
-        </defs>
-        <g filter="url(#filter0_df)">
-          <ellipse cx="960" cy="540" rx="400" ry="360" fill="#FEF389"/>
-        </g>
-        <g filter="url(#filter1_df)">
-          <path d="M960 0L985.477 500.369C985.588 502.562 987.941 503.896 989.88 502.866L1638.82 158.162L1031.16 520.128C1028.56 521.674 1029.63 525.656 1032.65 525.705L1920 540L1032.65 554.295C1029.63 554.344 1028.57 558.326 1031.16 559.872L1638.82 921.838L989.88 577.134C987.941 576.104 985.588 577.438 985.477 579.631L960 1080L934.523 579.631C934.412 577.438 932.059 576.104 930.12 577.134L281.177 921.838L888.838 559.872C891.435 558.326 890.373 554.344 887.351 554.295L0 540L887.351 525.705C890.373 525.656 891.435 521.674 888.838 520.128L281.177 158.162L930.12 502.866C932.059 503.896 934.412 502.562 934.523 500.369L960 0Z" fill="#FEF389"/>
-        </g>
-      </svg>
 
       <h1 className="blog-title">Brenden's Blog</h1>
+      <div className='lander-button-container'>
+        <div className='button-wrapper'>
+          <Tile
+            height='124px'
+            fixedWidth={true}
+            post={{title:"Enter"}}
+            clickFunc={() => navigate("/blog-list")}
+          />
+        </div>
+        <div className='button-wrapper'>
+          <Tile
+            height='124px'
+            fixedWidth={true}
+            post={{title:"About Me"}}
+            clickFunc={() => navigate('/blog/aboutme')}
+          />
+        </div>
+      </div>
 
-      <div className="enter-button-large" onClick={() => navigate('/blog-list')}>
+      {/* <div className="enter-button-large" onClick={() => navigate('/blog-list')}>
         <svg className="button-glow-large" width="694" height="588" viewBox="0 0 694 588" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g filter="url(#filter0_f_large)">
             <path fillRule="evenodd" clipRule="evenodd" d="M346.53 35L373.681 35.9838L400.626 38.9276L427.159 43.809L453.079 50.591L478.188 59.2218L502.294 69.6357L525.216 81.7537L546.777 95.4833L566.814 110.72L585.175 127.348L601.72 145.241L616.322 164.262L628.871 184.267L639.272 205.104L647.444 226.614L653.326 248.632L656.874 270.993L658.059 293.525L656.874 316.057L653.326 338.417L647.444 360.436L639.272 381.945L628.871 402.782L616.322 422.787L601.72 441.808L585.175 459.701L566.814 476.329L546.777 491.566L525.216 505.296L502.294 517.413L478.188 527.827L453.079 536.458L427.159 543.24L400.626 548.122L373.681 551.065L346.53 552.049L319.378 551.065L292.433 548.122L265.9 543.24L239.98 536.458L214.872 527.827L190.765 517.413L167.844 505.296L146.282 491.566L126.245 476.329L107.884 459.701L91.3395 441.808L76.7371 422.787L64.1879 402.782L53.7875 381.945L45.6151 360.436L39.7328 338.417L36.1855 316.057L35 293.525L36.1855 270.993L39.7328 248.632L45.6151 226.614L53.7875 205.104L64.1879 184.267L76.7371 164.262L91.3395 145.241L107.884 127.348L126.245 110.72L146.282 95.4833L167.844 81.7537L190.765 69.6357L214.872 59.2218L239.98 50.591L265.9 43.809L292.433 38.9276L319.378 35.9838L346.53 35ZM324.813 87.5361L303.262 89.8906L282.04 93.7949L261.308 99.2193L241.226 106.123L221.945 114.452L203.611 124.144L186.366 135.125L170.34 147.312L155.654 160.612L142.421 174.923L130.742 190.137L120.705 206.138L112.386 222.803L105.85 240.007L101.145 257.618L98.3075 275.503L97.3593 293.525L98.3075 311.546L101.145 329.431L105.85 347.042L112.386 364.246L120.705 380.912L130.742 396.912L142.421 412.126L155.654 426.437L170.34 439.737L186.366 451.924L203.611 462.905L221.945 472.597L241.225 480.927L261.309 487.83L282.04 493.254L303.261 497.159L324.813 499.513L346.53 500.3L368.246 499.513L389.798 497.159L411.02 493.254L431.75 487.83L451.834 480.927L471.115 472.597L489.448 462.905L506.693 451.924L522.72 439.737L537.405 426.437L550.638 412.126L562.318 396.912L572.354 380.912L580.673 364.246L587.21 347.042L591.914 329.431L594.752 311.546L595.7 293.525L594.752 275.503L591.914 257.618L587.21 240.007L580.673 222.804L572.354 206.137L562.318 190.137L550.638 174.923L537.405 160.612L522.72 147.312L506.693 135.125L489.448 124.144L471.115 114.452L451.834 106.123L431.751 99.2193L411.02 93.795L389.798 89.8906L368.246 87.5361L346.53 86.7493L324.813 87.5361Z" fill="#FFFAC9"/>
@@ -72,9 +44,9 @@ const LandingPage = () => {
           </defs>
         </svg>
         <div className="button-image-large"></div>
-      </div>
+      </div> */}
 
-      <div className="enter-button-small" onClick={() => navigate('/blog-list')}>
+      {/* <div className="enter-button-small" onClick={() => navigate('/blog/aboutme')}>
         <svg className="button-glow-small" width="308" height="300" viewBox="0 0 308 300" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g filter="url(#filter0_f_small)">
             <path fillRule="evenodd" clipRule="evenodd" d="M153.511 35L163.84 35.4357L174.091 36.7397L184.184 38.9019L194.045 41.9059L203.596 45.7288L212.767 50.3416L221.487 55.7091L229.689 61.7905L237.311 68.5395L244.296 75.9047L250.59 83.8301L256.145 92.2555L260.919 101.117L264.875 110.346L267.984 119.873L270.222 129.626L271.572 139.531L272.023 149.511L271.572 159.491L270.222 169.396L267.984 179.149L264.875 188.676L260.919 197.905L256.145 206.766L250.59 215.192L244.296 223.117L237.311 230.482L229.689 237.231L221.487 243.313L212.767 248.68L203.596 253.293L194.045 257.116L184.184 260.12L174.091 262.282L163.84 263.586L153.511 264.022L143.182 263.586L132.932 262.282L122.838 260.12L112.978 257.116L103.426 253.293L94.2556 248.68L85.536 243.313L77.3337 237.231L69.7112 230.482L62.7264 223.117L56.4325 215.192L50.8775 206.766L46.1036 197.905L42.1471 188.676L39.0382 179.149L36.8005 169.396L35.451 159.491L35 149.511L35.451 139.531L36.8005 129.626L39.0382 119.873L42.1471 110.346L46.1036 101.117L50.8775 92.2555L56.4325 83.8301L62.7264 75.9047L69.7112 68.5395L77.3337 61.7905L85.536 55.7091L94.2556 50.3416L103.426 45.7288L112.978 41.9059L122.838 38.9019L132.932 36.7397L143.182 35.4357L153.511 35ZM145.25 58.2703L137.051 59.3133L128.978 61.0426L121.092 63.4453L113.452 66.503L106.117 70.1924L99.1427 74.4855L92.5823 79.3496L86.4855 84.7476L80.8989 90.6386L75.8649 96.9776L71.4219 103.716L67.6035 110.804L64.439 118.186L61.9524 125.806L60.1626 133.607L59.0833 141.528L58.7226 149.511L59.0833 157.493L60.1626 165.415L61.9524 173.216L64.439 180.836L67.6035 188.218L71.4218 195.305L75.865 202.044L80.8989 208.383L86.4856 214.274L92.5823 219.672L99.1427 224.536L106.117 228.829L113.452 232.519L121.092 235.577L128.978 237.979L137.051 239.709L145.25 240.751L153.511 241.1L161.773 240.751L169.971 239.709L178.044 237.979L185.931 235.577L193.571 232.519L200.906 228.829L207.88 224.536L214.44 219.672L220.537 214.274L226.124 208.383L231.158 202.044L235.601 195.305L239.419 188.218L242.584 180.836L245.07 173.216L246.86 165.415L247.939 157.493L248.3 149.511L247.939 141.528L246.86 133.606L245.07 125.806L242.584 118.186L239.419 110.804L235.601 103.716L231.158 96.9776L226.124 90.6386L220.537 84.7477L214.44 79.3495L207.88 74.4855L200.906 70.1924L193.571 66.503L185.931 63.4453L178.044 61.0426L169.971 59.3133L161.773 58.2703L153.511 57.9218L145.25 58.2703Z" fill="#FFFAC9"/>
@@ -88,7 +60,7 @@ const LandingPage = () => {
           </defs>
         </svg>
         <div className="button-image-small"></div>
-      </div>
+      </div> */}
     </div>
   );
 };

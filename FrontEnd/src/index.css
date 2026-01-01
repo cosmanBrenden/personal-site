@@ -1,10 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two&display=swap');
+
+/* :root {
+  --base-light: #FEF389;
+  --border: #7B8271;
+  --text-color: #011E2C;
+  --base-dark: #022E46;
+  --text-bg: #FDF8D0;
+} */
+
 :root {
-  --banana-cream: #FEF389;
-  --dusty-olive: #7B8271;
-  --ink-black: #011E2C;
-  --deep-space-blue: #022E46;
-  --cream-bg: #FDF8D0;
-  --light-cream: #FFFAC9;
+  --base-light: #74bd72;
+  --border: #6b8c5e;
+  --text-color: #c0f5ab;
+  --base-dark: #4E6151;
+  --text-bg: #020202;
 }
 
 * {
@@ -20,7 +29,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: visible !important;
+  background-color: #000;
 }
 
 #root {
