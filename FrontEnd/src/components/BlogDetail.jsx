@@ -4,10 +4,21 @@ import DOMPurify from 'dompurify';
 import './BlogDetail.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+async function getContentURL(blog_id) {
+  const res = await fetch(`/api/blog/${blog_id}`);
+  if(!res.ok){
+    throw new Error(`Response status: ${res.status}`)
+  }
+  const result = await res.json()
+  return result
+}
+
 const BlogDetail = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
   const [callback, setCallback] = useState("");
+  const [blogContentURL, setBlogContentURL] = useState("/api/content/aboutme.html");
+  const [blogID, setBlogID] = useState("aboutme")
+  const [blogTitle, setBlogTitle] = useState("About Me")
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -16,6 +27,16 @@ const BlogDetail = () => {
       cb = '';
     }
     setCallback(cb)
+
+    setBlogID(window.location.pathname.split("/")[4])
+    console.log(blogID)
+    getContentURL(blogID).then(result => {
+      let content = result["path"]
+      setBlogContentURL(content)
+      let title = result["title"]
+      setBlogTitle(title)
+    })
+    
   }, [])
 // DOMPurify.sanitize()
   const loremText = `<h2>Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos.</h2>
@@ -50,10 +71,10 @@ Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapi
             <ArrowBackIcon/>
           </button>
 
-          <h1 className="blog-detail-title">Lorem Ipsum</h1>
+          <h1 className="blog-detail-title">{blogTitle}</h1>
           
           <div className="blog-detail-content">
-            <div dangerouslySetInnerHTML={{ __html: loremText }}></div>
+            <iframe src={blogContentURL}></iframe>
           </div>
         </div>
       </div>

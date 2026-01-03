@@ -21,19 +21,27 @@ const Tile = ({ post, clickFunc=null, height="384px", maxWidth="384px", fixedWid
   const [showDescription, setShowDescription] = useState(false);
   const [showTags, setShowTags] = useState(false);
   const [showDate, setShowDate] = useState(false);
+  const [parentStyle, setParentStyle] = useState({})
   const [isClickable, setIsClickable] = useState(false);
   
   useEffect(() => {
     if(fixedWidth){
-      changeCSS(".blog-tile", `width: ${maxWidth};`);
+      setParentStyle({
+        width: maxWidth,
+        height: height,
+        position: "relative",
+        cursor: "pointer",
+        transition: "transform 0.3s ease"
+      });
     }
     else{
-      changeCSS(".blog-tile", `max-width: ${maxWidth};`);
-    }
-    changeCSS(".blog-tile", `height: ${height};`);
-    console.log(`height: ${height}`)
-    if(!shouldGrow){
-      changeCSS(".blog-tile:hover", "transform: scale(1);")
+      setParentStyle({
+        maxWidth: maxWidth,
+        height: height,
+        position: "relative",
+        cursor: "pointer",
+        transition: "transform 0.3s ease"
+      });
     }
 
     let hasPost = post !== undefined;
@@ -61,7 +69,7 @@ const Tile = ({ post, clickFunc=null, height="384px", maxWidth="384px", fixedWid
   return (
     <>
   
-      <div className="blog-tile" onClick={clickFunc}>
+      <div style={parentStyle} className="blog-tile" onClick={clickFunc}>
         <div className="blog-tile-glow"></div>
         <div className="blog-tile-card">
           {showTitle ? <h3 className="blog-tile-title">{post.title}</h3> : null}
