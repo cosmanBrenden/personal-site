@@ -15,7 +15,6 @@ const SearchBar = ({barText, setBarText, handleKeyPress, options}) => {
     return(<div className="search-bar-container">
              <div className='search-bar-glow'></div>
             <div className="search-input-wrapper">
-              {/* {showSortMenu ? "fart" : "poo"} */}
               <input 
                 type="text" 
                 className="search-input" 
@@ -24,10 +23,6 @@ const SearchBar = ({barText, setBarText, handleKeyPress, options}) => {
                 onChange={(e) => setBarText(e.target.value)}
                 onKeyDown={handleKeyPress}
               />
-              {/* <button 
-                className="search-icon"
-                onClick={() => {setShowSortMenu(!showSortMenu)}}
-              ><SortIcon/></button> */}
               
               <Dropdown
                 show={showSortMenu}

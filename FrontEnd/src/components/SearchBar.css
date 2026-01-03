@@ -52,6 +52,24 @@
   transition: transform 0.3s ease;
 }
 
+.search-input-wrapper input {
+  width: 100%;
+  max-width: calc(100% - 32px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  unicode-bidi: plaintext; /* Better for mixed language text */
+  text-align: left;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-color);
+  font-size: 16px;
+  /* This ensures the end is shown */
+  direction: ltr;
+  text-overflow: clip; /* Instead of ellipsis if you don't want "..." */
+}
+
 .search-bar-container:hover {
   transform: scale(1.02);
 }

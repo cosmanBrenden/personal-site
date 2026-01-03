@@ -126,6 +126,11 @@
   overflow:hidden;
 }
 
+.blog-detail-content>img{
+  max-width: 50vw;
+  max-height: 50vh;
+}
+
 
 
 @media (max-width: 768px) {
