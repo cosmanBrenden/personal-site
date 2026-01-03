@@ -11,28 +11,32 @@ import './App.css';
 
 
 function App() {
-  const [videoURL, setVideoURL] = useState("https://www.w3schools.com/howto/rain.mp4");
-
+  const [videoURL, setVideoURL] = useState("/api/background");
+  const [videoTag, setVideoTag] = useState()
   useEffect(() => {
-    let rand = Math.floor(Math.random() * 2);
-    if(rand === 1){
-      setVideoURL("https://upload.wikimedia.org/wikipedia/commons/transcoded/c/ca/043_Greater_flamingo_vocalizing_in_the_Camargue_during_mating_season_%28slow_motion%29_Video_by_Giles_Laurent.webm/043_Greater_flamingo_vocalizing_in_the_Camargue_during_mating_season_%28slow_motion%29_Video_by_Giles_Laurent.webm.720p.vp9.webm");
-    }
-  }, []);
-
-  return (
-    <Router>
-      <div className="app">
-        
-        <video
+    setVideoTag(<video
         autoPlay
         loop
         muted
         className='background-image'
         src={videoURL}
         alt=""
-        />
-      
+        />);
+  },[])
+
+  return (
+    <Router>
+      <div className="app">
+        
+        {/* <video
+        autoPlay
+        loop
+        muted
+        className='background-image'
+        src={videoURL}
+        alt=""
+        /> */}
+      {videoTag}      
       {/* <div class="triangle top-left"></div>
       <div class="triangle top-right"></div>
       <div class="triangle bottom-left"></div>
@@ -44,6 +48,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/blog-list" element={<BlogList />} />
           <Route path="/blog/:id" element={<BlogDetail />} />
+          <Route path="/:whatever" element={<>fart</>}/>
         </Routes>
     </div>
     </Router>

@@ -1,0 +1,64 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:146.0) Gecko/20100101 Firefox/146.0" version="29.2.9">
+  <diagram name="Page-1" id="g9tjncA8uSODfHQb2pyK">
+    <mxGraphModel dx="1665" dy="733" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="6JlmcEEIauXD7i03g-ua-5" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center; text-decoration: underline;&quot;&gt;&lt;b&gt;API&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;Takes POST reqs from the FrontEnd for data it needs, sending the required data over HTTP" vertex="1">
+          <mxGeometry height="80" width="250" x="70" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="6JlmcEEIauXD7i03g-ua-6" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center; text-decoration: underline;&quot;&gt;&lt;b&gt;ContentGrabber&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;Loads and formats data from the server to send to the FrontEnd" vertex="1">
+          <mxGeometry height="90" width="160" x="240" y="260" as="geometry" />
+        </mxCell>
+        <mxCell id="6JlmcEEIauXD7i03g-ua-7" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center; text-decoration: underline;&quot;&gt;&lt;b&gt;Database&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;Handles requests for data that is stored in the database&lt;/p&gt;" vertex="1">
+          <mxGeometry height="90" width="160" x="530" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="6JlmcEEIauXD7i03g-ua-8" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center; text-decoration: underline;&quot;&gt;&lt;b&gt;FileGrabber&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;Handles requests for data that isn&#39;t stored in the database (e.g. HTML, images, videos, etc.)&lt;/p&gt;" vertex="1">
+          <mxGeometry height="90" width="160" x="240" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="6JlmcEEIauXD7i03g-ua-9" edge="1" parent="1" source="6JlmcEEIauXD7i03g-ua-8" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" target="6JlmcEEIauXD7i03g-ua-6" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="320" y="390" as="sourcePoint" />
+            <mxPoint x="480" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6JlmcEEIauXD7i03g-ua-10" edge="1" parent="1" source="6JlmcEEIauXD7i03g-ua-7" style="endArrow=diamondThin;endFill=1;endSize=24;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="6JlmcEEIauXD7i03g-ua-6" value="">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="530" y="470" as="sourcePoint" />
+            <mxPoint x="690" y="470" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6JlmcEEIauXD7i03g-ua-11" edge="1" parent="1" source="6JlmcEEIauXD7i03g-ua-5" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="6JlmcEEIauXD7i03g-ua-6" value="Use">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="250" y="180" as="sourcePoint" />
+            <mxPoint x="410" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6JlmcEEIauXD7i03g-ua-12" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center; text-decoration: underline;&quot;&gt;&lt;b&gt;Setup&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;Initializes the content grabber&lt;/p&gt;" vertex="1">
+          <mxGeometry height="90" width="160" x="530" y="90" as="geometry" />
+        </mxCell>
+        <mxCell id="6JlmcEEIauXD7i03g-ua-13" edge="1" parent="1" source="6JlmcEEIauXD7i03g-ua-5" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="6JlmcEEIauXD7i03g-ua-12" value="Use">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="330" y="110" as="sourcePoint" />
+            <mxPoint x="490" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6JlmcEEIauXD7i03g-ua-14" edge="1" parent="1" source="6JlmcEEIauXD7i03g-ua-12" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" target="6JlmcEEIauXD7i03g-ua-6" value="Use">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="590" y="230" as="sourcePoint" />
+            <mxPoint x="750" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6JlmcEEIauXD7i03g-ua-15" parent="1" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" value="&lt;p style=&quot;margin: 4px 0px 0px; text-align: center; text-decoration: underline;&quot;&gt;&lt;b&gt;Sanitizer&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:8px;&quot;&gt;Sanitizes any data that will be used in a DB query&lt;/p&gt;" vertex="1">
+          <mxGeometry height="90" width="160" x="530" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="6JlmcEEIauXD7i03g-ua-16" edge="1" parent="1" source="6JlmcEEIauXD7i03g-ua-7" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="6JlmcEEIauXD7i03g-ua-15" value="Use">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="640" y="430" as="sourcePoint" />
+            <mxPoint x="800" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
