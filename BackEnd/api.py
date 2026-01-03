@@ -33,6 +33,7 @@ def download(fp, filename):
         }), 500
 
 def get_blog_results(tags):
+    tags = tags.replace("'", "")
     tags = tags.split(",")
     incl_str = ""
     excl_str = ""
