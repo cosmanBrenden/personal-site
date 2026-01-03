@@ -24,3 +24,6 @@ blogs = {
 }
 
 any images will put src=/api/content/<some-filename>
+
+
+insert into blogs (id, title, description, tags, date, path) values ('aboutme', 'About Me', 'Find out about me!', ARRAY['aboutme'], NOW(), '/api/content/aboutme.html');
