@@ -14,6 +14,7 @@ from database_driver import DatabaseDriver
 from file_grabber import FileGrabber
 
 PORT = 5000
+HOSTNAME = "brendencosman.com"
 
 """
 Serves the client the file at fp, named with filename
@@ -106,6 +107,14 @@ limiter = Limiter(
     strategy="fixed-window", # or "moving-window", or "sliding-window-counter"
 )
 
+
+@app.before_request
+def redirect_to_www():
+    host = request.host
+    scheme = request.scheme
+    
+    if host == HOSTNAME or scheme == 'http':
+        return redirect(f'https://www.{HOSTNAME}{request.full_path}', code=301)
 
 """
 Serve React App
