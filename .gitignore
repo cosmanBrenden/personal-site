@@ -7,6 +7,8 @@ BackEnd/content
 BackEnd/__pycache__
 BackEnd/backgrounds.txt
 BackEnd/dblogin.txt
+BackEnd/cert.pem
+BackEnd/key.pem
 /.pnp
 .pnp.js
 .config
