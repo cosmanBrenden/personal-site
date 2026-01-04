@@ -1,7 +1,7 @@
 # https://stackoverflow.com/questions/44209978/serving-a-front-end-created-with-create-react-app-with-flask
 
 from datetime import datetime
-from flask import Flask, send_from_directory, send_file, jsonify
+from flask import Flask, send_from_directory, send_file, jsonify, redirect, request
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
