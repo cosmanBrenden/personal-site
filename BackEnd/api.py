@@ -187,7 +187,7 @@ def search_empty():
 
 # Runs the app if this script is being run as main
 if __name__ == '__main__':
-    run_simple("0.0.0.0", PORT, app, use_reloader=True, threaded=True)
+    run_simple("0.0.0.0", PORT, app, threaded=True, ssl_context=('cert.pem', 'key.pem'))
     try:
         db.close()
 
