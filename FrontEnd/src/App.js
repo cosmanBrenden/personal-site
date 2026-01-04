@@ -18,6 +18,7 @@ function App() {
         autoPlay
         loop
         muted
+        playsInline
         className='background-image'
         src={videoURL}
         alt=""
