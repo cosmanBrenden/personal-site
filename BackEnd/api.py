@@ -19,6 +19,7 @@ PORT = 5000
 Serves the client the file at fp, named with filename
 """
 def download(fp, filename):
+    print(f"Downloading '{fp}'")
     try:
         return send_file(
             fp,
@@ -33,6 +34,7 @@ def download(fp, filename):
         }), 500
 
 def get_blog_results(tags):
+    print(f"Searching with tags '{tags}'")
     tags = tags.replace("'", "")
     tags = tags.split(",")
     incl_str = ""
@@ -46,17 +48,12 @@ def get_blog_results(tags):
 
     incl_str = incl_str[:len(incl_str)-1]
     excl_str = excl_str[:len(excl_str)-1]
-    print(f"incl: {incl_str}")
-    print(f"incl == '': {incl_str == ''}")
-    print(f"excl: {excl_str}")
-    print(f"excl == '': {excl_str == ''}")
     try:
         if(incl_str == "" and excl_str == ""):
             message = db.execute(f"select * from blogs;")
         elif(incl_str != "" and excl_str == ""):
             message = db.execute(f"select * from blogs where ARRAY[{incl_str}] <@ tags;")
         elif(incl_str == "" and excl_str != ""):
-            print("here: " + f"select * from blogs where not( ARRAY[{excl_str}] && tags);")
             message = db.execute(f"select * from blogs where not( ARRAY[{excl_str}] && tags);")
         else:
             message = db.execute(f"select * from blogs where ARRAY[{incl_str}] <@ tags and not( ARRAY[{excl_str}] && tags);")
@@ -116,6 +113,7 @@ Serve React App
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
+    print("Serving app...")
     if path != "" and os.path.exists(app.static_folder + '/' + path):
         return send_from_directory(app.static_folder, path)
     else:
@@ -123,6 +121,7 @@ def serve(path):
 
 @app.route('/favicon.ico')
 def favicon():
+    print("Getting favicon...")
     return send_from_directory(app.static_folder,
                                'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
@@ -158,6 +157,7 @@ def download_bg():
 
 @app.route("/api/blog/<id>", methods=["GET"])
 def getblog(id):
+    print(f"Getting blog: {id}")
     try:
         message = db.execute(f"select * from blogs where id in ('{id}');")
         message = [{
@@ -187,7 +187,7 @@ def search_empty():
 
 # Runs the app if this script is being run as main
 if __name__ == '__main__':
-    run_simple("127.0.0.1", PORT, app, use_reloader=True, threaded=True)
+    run_simple("0.0.0.0", PORT, app, use_reloader=True, threaded=True)
     try:
         db.close()
 
