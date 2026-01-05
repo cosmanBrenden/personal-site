@@ -9,6 +9,8 @@ BackEnd/backgrounds.txt
 BackEnd/dblogin.txt
 BackEnd/cert.pem
 BackEnd/key.pem
+BackEnd/key.pem.bak
+BackEnd/cert.pem.bak
 /.pnp
 .pnp.js
 .config
