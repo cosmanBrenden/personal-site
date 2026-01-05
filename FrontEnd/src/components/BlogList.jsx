@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Tile from './Tile';
 import SearchBar from './SearchBar';
@@ -7,6 +7,7 @@ import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import HomeIcon from '@mui/icons-material/Home';
+import LoadingWindow from './LoadingWindow';
 
 async function getBlogsByTags(tags) {
   const res = await fetch(`/api/tags/${tags}`);
@@ -25,9 +26,12 @@ const BlogList = () => {
   const [shouldReverse, setShouldReverse] = useState(false);
   const [sortByTitle, setSortByTitle] = useState(false);
   const [blogPosts, setBlogPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [numSearches, setNumSearches] = useState(0);
 
   useEffect(() => {
-
+    setIsLoading(true); // Set loading true at start
+    
     const urlParams = new URLSearchParams(window.location.search);
     let tags = urlParams.get('tags');
     if(!tags){
@@ -35,10 +39,18 @@ const BlogList = () => {
     }
     setSearchText(tags);
     setBarText(tags);
+    
+    // Use functional update to ensure correct state
+    setNumSearches(prev => prev + 1);
+    
     getBlogsByTags(tags).then(result => {
-      setBlogPosts(result)
-    })
-    handleSort();
+      setBlogPosts(result);
+      setNumSearches(prev => prev - 1);
+      setIsLoading(false); // Set loading false after data arrives
+    }).catch(error => {
+      setNumSearches(prev => prev - 1);
+      setIsLoading(false); // Also handle errors
+    });
     
     setIsInit(true);
   }, [])
@@ -61,18 +73,30 @@ const BlogList = () => {
     }
   },[searchText, isInit])
 
+  useEffect(() => {
+    // Update loading state based on numSearches
+    if (numSearches > 0) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [numSearches])
+
   const handleSearch = () => {
-    const newSearchText = barText.replaceAll(" ", ""); // Get the current value from barText
-    setSearchText(newSearchText); // Update searchText state
+    setIsLoading(true); // Set loading true immediately
+    setNumSearches(prev => prev + 1); // Use functional update
+    const newSearchText = barText.replaceAll(" ", "");
+    setSearchText(newSearchText);
     
-    // Use newSearchText instead of searchText
     getBlogsByTags(newSearchText).then(result => {
-      setBlogPosts(result)
-    })
+      setBlogPosts(result);
+      setNumSearches(prev => prev - 1); // Use functional update
+    }).catch(error => {
+      setNumSearches(prev => prev - 1); // Use functional update
+    });
   };
  
   const handleKeyPress = (e) => {
-    // Check if the pressed key is 'Enter'
     if (e.key === 'Enter') {
       handleSearch();
     }
@@ -97,11 +121,9 @@ const BlogList = () => {
     let blogs = [...blogPosts];
     setShouldReverse(false);
     if(sortByTitle){
-      console.log("Sorting by title");
       blogs = blogs.sort((a,b) => a.title.localeCompare(b.title));
     }
     else{
-      console.log("sorting by date")
       blogs = blogs.sort((a,b) => a.date < b.date);
     }
     setBlogPosts([...blogs]);
@@ -119,21 +141,26 @@ const BlogList = () => {
           <button key={1} className={!sortByTitle ? "drop-down-button-highlight" : "drop-down-button"} onClick={() => handleSortToggle(false)}><DateRangeIcon/></button>,
           <button key={2} className={shouldReverse ? "drop-down-button-highlight" : "drop-down-button"} onClick={() => handleRevToggle()}><SwapVertIcon/></button>
         ]}
-
       />
 
-      <div className="blog-grid-container">
+      
+          {isLoading ? (
+            <LoadingWindow text={"Loading Blogs..."}/>
+          ) : (
+            <div className="blog-grid-container">
         <div className="blog-grid">
-          {blogPosts.map((post) => (
-            <Tile 
-              key={post.id} 
-              post={post}
-              shouldGrow={true}
-              clickFunc={() => navigate(`/blog/${post.id}?callback=${window.location.search}`)} 
-            />
-          ))}
-        </div>
+            {blogPosts.map((post) => (
+              <Tile 
+                key={post.id} 
+                post={post}
+                shouldGrow={true}
+                clickFunc={() => navigate(`/blog/${post.id}?callback=${window.location.search}`)} 
+              />
+            ))}
+            </div>
       </div>
+          )}
+        
     </div>
   );
 };

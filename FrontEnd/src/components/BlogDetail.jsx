@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import './BlogDetail.css';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import LoadingWindow from './LoadingWindow';
 
 async function getContentURL(blog_id) {
   const res = await fetch(`/api/blog/${blog_id}`);
@@ -95,7 +96,7 @@ const BlogDetail = () => {
             <button className="back-button" onClick={() => navigate('/blog-list'.concat(callback))}>
               <ArrowBackIcon/>
             </button>
-            <div className="blog-detail-content">Loading...</div>
+            <LoadingWindow text={"Buckle Your Seatbelts..."}/>
           </div>
         </div>
       </div>

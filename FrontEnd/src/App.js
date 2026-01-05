@@ -6,52 +6,76 @@ import BlogList from './components/BlogList';
 import BlogDetail from './components/BlogDetail';
 import TVStaticFilter from './components/TVStaticFilter';
 import './App.css';
-
-
-
+import LoadingWindow from './components/LoadingWindow';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const [videoURL, setVideoURL] = useState("/api/background");
-  const [videoTag, setVideoTag] = useState()
+  const [videoTag, setVideoTag] = useState(null);
+
   useEffect(() => {
-    setVideoTag(<video
+    const videoElement = document.createElement('video');
+    videoElement.src = videoURL;
+    videoElement.preload = 'auto';
+    
+    // When video metadata is loaded (enough to know dimensions/duration)
+    videoElement.onloadeddata = () => {
+      setIsLoading(false);
+    };
+    
+    // Fallback in case onloadeddata doesn't fire
+    videoElement.oncanplaythrough = () => {
+      setIsLoading(false);
+    };
+    
+    // Error handling
+    videoElement.onerror = () => {
+      console.error('Failed to load background video');
+      setIsLoading(false); // Stop loading even if video fails
+    };
+    
+    // Set a timeout to prevent infinite loading
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+    }, 5000); // 5 second timeout
+
+    setVideoTag(
+      <video
+        key="background-video"
         autoPlay
         loop
         muted
         playsInline
         className='background-image'
         src={videoURL}
+        onLoadedData={() => setIsLoading(false)}
+        onCanPlayThrough={() => setIsLoading(false)}
+        onError={() => setIsLoading(false)}
         alt=""
-        />);
-  },[])
+      />
+    );
+
+    return () => clearTimeout(timeoutId);
+  }, [videoURL]);
 
   return (
     <Router>
       <div className="app">
-        
-        {/* <video
-        autoPlay
-        loop
-        muted
-        className='background-image'
-        src={videoURL}
-        alt=""
-        /> */}
-      {videoTag}      
-      {/* <div class="triangle top-left"></div>
-      <div class="triangle top-right"></div>
-      <div class="triangle bottom-left"></div>
-      <div class="triangle bottom-right"></div>
-      <div className='animation'/>
-      <div className='overlay'/> */}
-      <TVStaticFilter/>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/blog-list" element={<BlogList />} />
-          <Route path="/blog/:id" element={<BlogDetail />} />
-          <Route path="/:whatever" element={<>fart</>}/>
-        </Routes>
-    </div>
+        {isLoading ? (
+          <LoadingWindow/>
+        ) : (
+          <>
+            {videoTag}
+            <TVStaticFilter/>
+            <Routes>
+              <Route path="/" element={<LandingPage />} />
+              <Route path="/blog-list" element={<BlogList />} />
+              <Route path="/blog/:id" element={<BlogDetail />} />
+              <Route path="/:whatever" element={<>fart</>}/>
+            </Routes>
+          </>
+        )}
+      </div>
     </Router>
   );
 }

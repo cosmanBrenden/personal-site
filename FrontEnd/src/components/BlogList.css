@@ -37,6 +37,8 @@
   }
 }
 
+
+
 .home-button-wrapper{
   width: 60px;
   height: 60px;
@@ -72,3 +74,30 @@
     background-color: var(--base-light);
     
 }
+
+/* .loading-container {
+  width: 60%;
+  height: 30%;
+  padding: clamp(15vh, 10vw, 194px) clamp(20px, 4vw, 76px);
+  position: fixed;
+  top:35%;
+  left:20%;
+  z-index: 1;
+  border-radius: 20px;
+  border: 5px solid var(--border);
+  background-color: var(--text-bg);
+  background-image: radial-gradient(
+    color-mix(in srgb, var(--base-light) 75%, transparent), var(--text-bg) 110%
+  );
+  box-shadow: 0 4px 100px 10px color-mix(in srgb, var(--border) 25%, transparent);
+}
+
+.loading-text{
+  color: var(--text-color);
+  text-align: center;
+  font-family: Inconsolata, monospace;
+  text-shadow: 0 0 5px #C8C8C8;
+  font-size: 1rem;
+} */
+
+

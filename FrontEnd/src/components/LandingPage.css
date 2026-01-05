@@ -23,6 +23,7 @@
   transform: translateX(-50%);
   white-space: nowrap;
   z-index: 2;
+  text-shadow: 0 0 10px #C8C8C8;
 }
 .lander-button-container{
   position: relative;
