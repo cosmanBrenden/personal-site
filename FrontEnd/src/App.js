@@ -7,11 +7,19 @@ import BlogDetail from './components/BlogDetail';
 import TVStaticFilter from './components/TVStaticFilter';
 import './App.css';
 import LoadingWindow from './components/LoadingWindow';
+import HomeButton from './components/HomeButton';
+import FallbackPage from './components/FallbackPage';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [videoURL, setVideoURL] = useState("/api/background");
   const [videoTag, setVideoTag] = useState(null);
+
+  const [postCache, setPostCache] = useState(new Map())
+  const [postReads, setPostReads] = useState(new Map())
+  const [titleCache, setTitleCache] = useState(new Map())
+
+  const maxCache = 5;
 
   useEffect(() => {
     const videoElement = document.createElement('video');
@@ -58,6 +66,35 @@ function App() {
     return () => clearTimeout(timeoutId);
   }, [videoURL]);
 
+  const handleAddToCache = (keyToAdd, valueToAdd, titleToAdd) => {
+    if(postCache.size >= maxCache){
+      let smallestKey = Array.from(postCache.keys())[0]
+      let LRU = postCache.get(smallestKey);
+      postCache.forEach((value, key) => {
+        if(value < LRU){
+          smallestKey = key;
+          LRU = value;
+        }
+      })
+      postCache.delete(smallestKey)
+      postReads.delete(smallestKey)
+      titleCache.delete(smallestKey)
+    }
+    postCache.set(keyToAdd, valueToAdd)
+    postReads.set(keyToAdd, 1)
+    titleCache.set(keyToAdd, titleToAdd)
+  }
+
+  const handleReadFromCache = (key) => {
+    let keyInCache = postCache.get(key) !== undefined
+    if(keyInCache){
+      let newCount = postReads.get(key)
+      newCount = newCount + 1
+      postReads.set(key, newCount)
+    }
+    return [postCache.get(key), titleCache.get(key)]
+  }
+
   return (
     <Router>
       <div className="app">
@@ -70,8 +107,8 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path="/blog-list" element={<BlogList />} />
-              <Route path="/blog/:id" element={<BlogDetail />} />
-              <Route path="/:whatever" element={<>fart</>}/>
+              <Route path="/blog/:id" element={<BlogDetail add={handleAddToCache} read={handleReadFromCache}/>} />
+              <Route path="*" element={<FallbackPage/>}/>
             </Routes>
           </>
         )}

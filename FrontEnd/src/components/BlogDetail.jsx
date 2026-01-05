@@ -14,7 +14,7 @@ async function getContentURL(blog_id) {
   return result;
 }
 
-const BlogDetail = () => {
+const BlogDetail = ({add, read}) => {
   const navigate = useNavigate();
   const [callback, setCallback] = useState('');
   const [blogContentURL, setBlogContentURL] = useState(null);
@@ -39,53 +39,65 @@ const BlogDetail = () => {
     setBlogID(id);
   }, []);
 
+  // Combined useEffect to handle all loading logic in one place
   useEffect(() => {
     if (!blogID) return;
 
-    setIsLoading(true);
-    setError(null);
-    
-    getContentURL(blogID)
-      .then(result => {
-        let content = result["path"];
-        let title = result["title"];
-        setBlogContentURL(content);
+    // Check cache first
+    const [cachedContent, cachedTitle] = read(blogID);
+    if (cachedContent !== undefined) {
+      console.log('Loading from cache');
+      setInnerHTML(cachedContent);
+      setBlogTitle(cachedTitle)
+      setIsLoading(false);
+      return;
+    }
+
+    // If not in cache, fetch metadata then content
+    const fetchBlogData = async () => {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        // Step 1: Fetch blog metadata
+        const result = await getContentURL(blogID);
+        const contentURL = result["path"];
+        const title = result["title"];
+        
         setBlogTitle(title);
-      })
-      .catch(err => {
-        console.error('Error fetching blog metadata:', err);
-        setError('Failed to load blog post');
-        setBlogTitle("Where do you think you're going?");
-        setBlogContentURL(null);
-        setInnerHTML(fallbackHTML);
-        setIsLoading(false);
-      });
-  }, [blogID]);
+        setBlogContentURL(contentURL);
 
-  useEffect(() => {
-    if (!blogContentURL) return;
-
-    setIsLoading(true);
-    
-    fetch(blogContentURL)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Failed to fetch content: ${response.status}`);
+        // Step 2: Fetch blog content
+        const contentResponse = await fetch(contentURL);
+        if (!contentResponse.ok) {
+          throw new Error(`Failed to fetch content: ${contentResponse.status}`);
         }
-        return response.text();
-      })
-      .then(text => {
-        setInnerHTML(DOMPurify.sanitize(text));
+        
+        const contentText = await contentResponse.text();
+        // const sanitizedContent = DOMPurify.sanitize(contentText);
+        const sanitizedContent = contentText;
+        
+        // Add to cache and update state
+        add(blogID, sanitizedContent, title);
+        setInnerHTML(sanitizedContent);
         setIsLoading(false);
-        setError(null);
-      })
-      .catch(err => {
-        console.error('Error fetching blog content:', err);
+        
+      } catch (err) {
+        console.error('Error loading blog:', err);
         setError('Failed to load blog content');
+        setBlogTitle("Where do you think you're going?");
         setInnerHTML(fallbackHTML);
         setIsLoading(false);
-      });
-  }, [blogContentURL]);
+      }
+    };
+
+    fetchBlogData();
+  }, [blogID, read, add]); // Add dependencies
+
+  // Handle back navigation
+  const handleBackClick = () => {
+    navigate(`/blog-list${callback}`);
+  };
 
   if (isLoading && !error) {
     return (
@@ -93,7 +105,7 @@ const BlogDetail = () => {
         <div className='blog-detail-glow'/>
         <div className="blog-window-overlay">
           <div className="blog-window">
-            <button className="back-button" onClick={() => navigate('/blog-list'.concat(callback))}>
+            <button className="back-button" onClick={handleBackClick}>
               <ArrowBackIcon/>
             </button>
             <LoadingWindow text={"Buckle Your Seatbelts..."}/>
@@ -108,7 +120,7 @@ const BlogDetail = () => {
       <div className='blog-detail-glow'/>
       <div className="blog-window-overlay">
         <div className="blog-window">
-          <button className="back-button" onClick={() => navigate('/blog-list'.concat(callback))}>
+          <button className="back-button" onClick={handleBackClick}>
             <ArrowBackIcon/>
           </button>
 

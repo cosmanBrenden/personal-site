@@ -39,41 +39,7 @@
 
 
 
-.home-button-wrapper{
-  width: 60px;
-  height: 60px;
-  z-index: 200;
-  border-radius: 20px;
-  border: 5px solid var(--border);
-  background-color: var(--text-bg);
-  background-image: radial-gradient(
-    color-mix(in srgb, var(--base-light) 75%, transparent), var(--text-bg) 110%
-  );
-  box-shadow: 0 4px 100px 10px color-mix(in srgb, var(--border) 25%, transparent);
-  position: fixed;
-  left:calc(15% - 50px);
-  top:45px;
-  /* padding: 0 20px; */
-  transition: transform 0.3s ease;
-}
 
-.home-button{
-  color: var(--text-color);
-  background: color-mix(in srgb, var(--base-light) 50%, transparent);
-  box-shadow: 0 0 20px #C8C8C8;
-  letter-spacing: 0.5px;
-  border-radius: 5px;
-  border:2px;
-  transition: background-color 0.3s ease;
-  position: absolute;
-  top:25%;
-  left: 25%;
-}
-
-.home-button-wrapper:hover{
-    background-color: var(--base-light);
-    
-}
 
 /* .loading-container {
   width: 60%;

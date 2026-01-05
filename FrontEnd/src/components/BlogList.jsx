@@ -6,8 +6,8 @@ import './BlogList.css';
 import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import DateRangeIcon from '@mui/icons-material/DateRange';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
-import HomeIcon from '@mui/icons-material/Home';
 import LoadingWindow from './LoadingWindow';
+import HomeButton from './HomeButton';
 
 async function getBlogsByTags(tags) {
   const res = await fetch(`/api/tags/${tags}`);
@@ -131,7 +131,7 @@ const BlogList = () => {
 
   return (
     <div className="blog-list-page">
-      <div className='home-button-wrapper' onClick={() => navigate("/")}><HomeIcon className='home-button'/></div>
+      <HomeButton/>
       <SearchBar
         barText={barText}
         setBarText={setBarText}
