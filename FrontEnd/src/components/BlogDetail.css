@@ -242,7 +242,7 @@
 
 .blog-detail-content>img{
   max-width: 98%;
-  /* max-height: 50vh; */
+  max-height: 50vh;
   border-radius: 10px;
   border: 5px solid var(--border);
   background-color: var(--text-bg);
