@@ -263,8 +263,8 @@
   border: 5px solid var(--border);
   background-color: var(--text-bg);
   display: block;
-  margin-left: 0;
-  margin-right: auto;
+  /* margin-left: 0;
+  margin-right: auto; */
 }
 
 .blog-detail-content-a{
