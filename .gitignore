@@ -11,6 +11,7 @@ BackEnd/cert.pem
 BackEnd/key.pem
 BackEnd/key.pem.bak
 BackEnd/cert.pem.bak
+BlogPosts/*
 /.pnp
 .pnp.js
 .config
