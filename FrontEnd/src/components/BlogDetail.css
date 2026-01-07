@@ -233,12 +233,20 @@
   font-weight: 500;
 } */
 
-.blog-detail-content>iframe{
+.left{
+  float:left;
+}
+
+.right{
+  float: right;
+}
+
+.blog-detail-content-iframe{
   max-width: 100%;
   max-height: 100%;
   border: none;
   overflow:hidden;
-  text-align: center;
+  /* text-align: center; */
   line-height: none ;
 }
 
@@ -248,32 +256,32 @@
   border-radius:12px;
 } */
 
-.blog-detail-content>img{
+.blog-detail-content-img{
   max-width: 100%;
   max-height: 60vh;
   border-radius: 10px;
   border: 5px solid var(--border);
   background-color: var(--text-bg);
   display: block;
-  margin-left: auto;
+  margin-left: 0;
   margin-right: auto;
 }
 
-.blog-detail-content>a{
+.blog-detail-content-a{
   text-shadow: 4px 4px 5px #C8C8C8;
   transition: transform 0.3s ease;
 }
 
-.blog-detail-content>a:link{
+.blog-detail-content-a:link{
   color: color-mix(in srgb, var(--text-color) 70%, #ffffff 30%);
 }
 
-.blog-detail-content>a:visited{
+.blog-detail-content-a:visited{
   color: color-mix(in srgb, var(--text-color) 70%, #000000 30%);
   text-shadow: 0 0 3px #C8C8C8 !important;
 }
 
-.blog-detail-content>a:hover{
+.blog-detail-content-a:hover{
   color: color-mix(in srgb, var(--text-color) 10%, #ffffff 90%);
   text-shadow: 10px 10px 5px #C8C8C8;
   transform: scale(1.1);

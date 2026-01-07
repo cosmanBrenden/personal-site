@@ -3,7 +3,7 @@ import io
 import random
 
 DEFAULT_DIR = "./content"
-VALID_FTYPES = {"jpg", "jpeg", "png", "mp4", "mp3", "html", "webm", "gif"}
+VALID_FTYPES = {"jpg", "jpeg", "png", "mp4", "mp3", "html", "webm", "gif", "js"}
 BACKGROUND_LIST_FP = "./backgrounds.txt"
 
 class FileGrabber:
