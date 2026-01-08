@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Tile from './Tile';
 import SearchBar from './SearchBar';
@@ -29,6 +29,26 @@ const BlogList = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [numSearches, setNumSearches] = useState(0);
 
+  // Use useMemo to sort posts based on current sorting criteria
+  const sortedPosts = useMemo(() => {
+    let posts = [...blogPosts];
+    
+    // Sort by title or date
+    if (sortByTitle) {
+      posts.sort((a, b) => a.title.localeCompare(b.title));
+    } else {
+      // Sort by date - assuming date is a string in ISO format
+      posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+    }
+    
+    // Reverse if needed
+    if (shouldReverse) {
+      posts.reverse();
+    }
+    
+    return posts;
+  }, [blogPosts, sortByTitle, shouldReverse]);
+
   useEffect(() => {
     setIsLoading(true); // Set loading true at start
     
@@ -48,16 +68,13 @@ const BlogList = () => {
       setNumSearches(prev => prev - 1);
       setIsLoading(false); // Set loading false after data arrives
     }).catch(error => {
+      console.error('Error fetching blogs:', error);
       setNumSearches(prev => prev - 1);
       setIsLoading(false); // Also handle errors
     });
     
     setIsInit(true);
   }, [])
-
-  useEffect(() => {
-    handleSort();
-  }, [sortByTitle]);
 
   useEffect(() =>{
     if(!isInit){
@@ -92,6 +109,7 @@ const BlogList = () => {
       setBlogPosts(result);
       setNumSearches(prev => prev - 1); // Use functional update
     }).catch(error => {
+      console.error('Error fetching blogs:', error);
       setNumSearches(prev => prev - 1); // Use functional update
     });
   };
@@ -108,25 +126,6 @@ const BlogList = () => {
 
   const handleRevToggle = () => {
     setShouldReverse(!shouldReverse);
-    handleReverse();
-  }
-
-  const handleReverse = () => {
-    let blogs = [...blogPosts]
-    blogs.reverse();
-    setBlogPosts([...blogs]);
-  }
-
-  const handleSort = () => {
-    let blogs = [...blogPosts];
-    setShouldReverse(false);
-    if(sortByTitle){
-      blogs = blogs.sort((a,b) => a.title.localeCompare(b.title));
-    }
-    else{
-      blogs = blogs.sort((a,b) => a.date < b.date);
-    }
-    setBlogPosts([...blogs]);
   }
 
   return (
@@ -149,7 +148,7 @@ const BlogList = () => {
           ) : (
             <div className="blog-grid-container">
         <div className="blog-grid">
-            {blogPosts.map((post) => (
+            {sortedPosts.map((post) => (
               <Tile 
                 key={post.id} 
                 post={post}
