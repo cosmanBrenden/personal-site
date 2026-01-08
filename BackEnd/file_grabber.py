@@ -28,7 +28,7 @@ class FileGrabber:
         ftype = fname.split(".")[-1]
         if ftype not in VALID_FTYPES:
             raise Exception(f"Invalid filetype \"{ftype}\" for file \"{fname}\"")
-        fullpath = os.path.join(DEFAULT_DIR, fname)
+        fullpath = os.path.join(DEFAULT_DIR, fname.split("/")[-1])
         if not os.path.exists(fullpath):
             raise Exception(f"No file \"{fname}\" in the database!")
         
