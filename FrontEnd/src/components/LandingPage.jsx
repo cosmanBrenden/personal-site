@@ -28,6 +28,14 @@ const LandingPage = () => {
             clickFunc={() => navigate('/blog/aboutme')}
           />
         </div>
+        <div className='button-wrapper'>
+          <Tile
+            height='124px'
+            fixedWidth={true}
+            post={{title:"How to Navigate the Site"}}
+            clickFunc={() => navigate('/blog/howto')}
+          />
+        </div>
       </div>
 
       {/* <div className="enter-button-large" onClick={() => navigate('/blog-list')}>

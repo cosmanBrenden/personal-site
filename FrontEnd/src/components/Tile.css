@@ -40,7 +40,7 @@
   color: var(--text-color);
   font-family: Inconsolata, monospace;
   text-shadow: 0 0 5px #C8C8C8;
-  font-size: clamp(18px, 2vw, 24px);
+  font-size: 1.2em;
   font-style: normal;
   font-weight: 600;
   line-height: 24px;
