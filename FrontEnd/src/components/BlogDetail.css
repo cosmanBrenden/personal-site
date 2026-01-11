@@ -233,21 +233,48 @@
   font-weight: 500;
 } */
 
-.left{
+.f-left{
   float:left;
 }
 
-.right{
+.f-right{
   float: right;
 }
 
+.right{
+  left:100%;
+  transform: translate(-100%, 0%);
+}
+
+.center{
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
 .blog-detail-content-iframe{
+  position:relative;
   max-width: 100%;
   max-height: 100%;
-  border: none;
   overflow:hidden;
   /* text-align: center; */
   line-height: none ;
+
+  border-radius: 10px;
+  
+
+  display: block;
+  margin: 5px 5px 5px 5px;
+  border:none;
+}
+
+.solid-border{
+  border: 5px solid var(--border);
+  background-color: var(--text-bg);
+}
+
+.glow-border{
+  box-shadow: 0px 0px 10px #C8C8C8;
+  border: 5px transparent #ffffff;
 }
 
 /* .spotify{
@@ -257,12 +284,13 @@
 } */
 
 .blog-detail-content-img{
+  position:relative;
   max-width: 100%;
   max-height: 60vh;
   border-radius: 10px;
-  border: 5px solid var(--border);
-  background-color: var(--text-bg);
   display: block;
+  margin: 5px 5px 5px 5px;
+  border:none;
   /* margin-left: 0;
   margin-right: auto; */
 }
