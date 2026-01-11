@@ -175,18 +175,24 @@
   }
   
   .blog-detail-content>h1{
-    font-size: 2.25rem; /* Reduced from 3rem */
-    margin: 2.5rem 0 1.25rem;
+    font-size: 2rem; /* Reduced from 3rem */
+    margin: 2.25rem 0 1.25rem;
   }
   
   .blog-detail-content>h2{
-    font-size: 1.875rem; /* Reduced from 2.5rem */
+    font-size: 1.75rem; /* Reduced from 2.5rem */
     margin: 2rem 0 1rem;
   }
   
   .blog-detail-content>h3{
     font-size: 1.5rem; /* Reduced from 1.75rem */
     margin: 1.75rem 0 0.875rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .blog-detail-content{
+    font-size: 0.75rem;
   }
 }
 
