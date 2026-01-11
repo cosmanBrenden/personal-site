@@ -26,7 +26,7 @@ const BlogDetail = ({add, read}) => {
 
   const fallbackHTML = `<div class="blog-detail-content">
     <h1>Nobody here but us chickens...</h1>
-    <img class="blog-detail-content-img" src="/api/content/chicken.png" alt="Chicken"></img>
+    <img class="blog-detail-content-img center glow-border" src="/api/content/chicken.png" alt="Chicken"></img>
   </div>`;
 
   useEffect(() => {
