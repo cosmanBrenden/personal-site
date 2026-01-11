@@ -99,7 +99,7 @@
   text-align: left;
   font-family: Inconsolata, monospace;
   text-shadow: 0 0 5px #C8C8C8;
-  font-size: 0.7rem; /* Slightly smaller than 1rem */
+  font-size: 1rem; /* Slightly smaller than 1rem */
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -140,7 +140,7 @@
   }
   
   .blog-detail-content {
-    font-size: 0.775rem; /* Reduced from 1.125rem */
+    font-size: 1rem; /* Reduced from 1.125rem */
     line-height: 1.7;
     padding: 0 2rem;
   }
@@ -169,7 +169,7 @@
   }
   
   .blog-detail-content {
-    font-size: 0.85rem; /* Reduced from 1.25rem */
+    font-size: 1rem; /* Reduced from 1.25rem */
     line-height: 1.8;
     padding: 0;
   }
