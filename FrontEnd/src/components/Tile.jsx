@@ -55,7 +55,7 @@ const Tile = ({ post, clickFunc=null, height="384px", maxWidth="384px", fixedWid
         <div className="blog-tile-card">
           {showTitle ? <h3 className="blog-tile-title">{post.title}</h3> : null}
           {showDescription ? <p className="blog-tile-description">{post.description}</p> : null}
-          {showTags ? <p className="blog-tile-tags">{post.tags}</p> : null}
+          {showTags ? <p className="blog-tile-tags">{post.tags.toString()}</p> : null}
           {showDate ? <p className="blog-tile-tags">{new Date(post.date * 1000).toString()}</p> : null}
         </div>
       </div>
