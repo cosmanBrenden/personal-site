@@ -18,6 +18,7 @@ function App() {
   const [postCache, setPostCache] = useState(new Map())
   const [postReads, setPostReads] = useState(new Map())
   const [titleCache, setTitleCache] = useState(new Map())
+  const [tagCache, setTagCache] = useState(new Map())
 
   const maxCache = 5;
 
@@ -66,7 +67,7 @@ function App() {
     return () => clearTimeout(timeoutId);
   }, [videoURL]);
 
-  const handleAddToCache = (keyToAdd, valueToAdd, titleToAdd) => {
+  const handleAddToCache = (keyToAdd, valueToAdd, titleToAdd, tagToAdd) => {
     if(postCache.size >= maxCache){
       let smallestKey = Array.from(postCache.keys())[0]
       let LRU = postCache.get(smallestKey);
@@ -79,10 +80,12 @@ function App() {
       postCache.delete(smallestKey)
       postReads.delete(smallestKey)
       titleCache.delete(smallestKey)
+      tagCache.delete(smallestKey)
     }
     postCache.set(keyToAdd, valueToAdd)
     postReads.set(keyToAdd, 1)
     titleCache.set(keyToAdd, titleToAdd)
+    tagCache.set(keyToAdd, tagToAdd)
   }
 
   const handleReadFromCache = (key) => {
@@ -92,7 +95,7 @@ function App() {
       newCount = newCount + 1
       postReads.set(key, newCount)
     }
-    return [postCache.get(key), titleCache.get(key)]
+    return [postCache.get(key), titleCache.get(key), tagCache.get(key)]
   }
 
   return (

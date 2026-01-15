@@ -23,6 +23,7 @@ const BlogDetail = ({add, read}) => {
   const [innerHTML, setInnerHTML] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [blogTags, setBlogTags] = useState('')
 
   const fallbackHTML = `<div class="blog-detail-content">
     <h1>Nobody here but us chickens...</h1>
@@ -44,11 +45,12 @@ const BlogDetail = ({add, read}) => {
     if (!blogID) return;
 
     // Check cache first
-    const [cachedContent, cachedTitle] = read(blogID);
+    const [cachedContent, cachedTitle, cachedTags] = read(blogID);
     if (cachedContent !== undefined) {
       console.log('Loading from cache');
       setInnerHTML(cachedContent);
-      setBlogTitle(cachedTitle)
+      setBlogTitle(cachedTitle);
+      setBlogTags(cachedTags);
       setIsLoading(false);
       return;
     }
@@ -63,9 +65,11 @@ const BlogDetail = ({add, read}) => {
         const result = await getContentURL(blogID);
         const contentURL = result["path"];
         const title = result["title"];
+        const tags = result['tags']
         
         setBlogTitle(title);
         setBlogContentURL(contentURL);
+        setBlogTags(tags.toString());
 
         // Step 2: Fetch blog content
         const contentResponse = await fetch(contentURL);
@@ -78,7 +82,7 @@ const BlogDetail = ({add, read}) => {
         const sanitizedContent = contentText;
         
         // Add to cache and update state
-        add(blogID, sanitizedContent, title);
+        add(blogID, sanitizedContent, title, tags.toString());
         setInnerHTML(sanitizedContent);
         setIsLoading(false);
         
@@ -87,6 +91,7 @@ const BlogDetail = ({add, read}) => {
         setError('Failed to load blog content');
         setBlogTitle("Where do you think you're going?");
         setInnerHTML(fallbackHTML);
+        setBlogTags("");
         setIsLoading(false);
       }
     };
@@ -132,6 +137,9 @@ const BlogDetail = ({add, read}) => {
               __html: innerHTML || fallbackHTML
             }}
           />
+          <br></br>
+          <br></br>
+          <div className='blog-detail-content' style={{textAlign: "center"}}>tags: {blogTags}</div>
         </div>
       </div>
     </div>

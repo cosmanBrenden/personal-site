@@ -59,8 +59,9 @@
   );
   box-shadow: 0 4px 100px 20px color-mix(in srgb, var(--border) 25%, transparent);
   position: relative;
-  padding: 94px clamp(20px, 8.6vw, 166px);
+  padding: 94px clamp(20px,8.6vw,166px) 24px clamp(20px,8.6vw,166px);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .back-button {
