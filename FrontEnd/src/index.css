@@ -8,13 +8,13 @@
   --text-bg: #FDF8D0;
 } */
 
-:root {
+/* :root {
   --base-light: #74bd72;
   --border: #6b8c5e;
   --text-color: #c0f5ab;
   --base-dark: #4E6151;
   --text-bg: #020202;
-}
+} */
 
 * {
   margin: 0;
