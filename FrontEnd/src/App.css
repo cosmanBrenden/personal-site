@@ -8,6 +8,22 @@
 
 }
 
+.green{
+  --text-color: #c0f5ab;
+  --base-light: #74bd72;
+  --border: #6b8c5e;
+  --base-dark: #4E6151;
+  --text-bg: #020202;
+}
+
+.amber{
+  --text-color:#FFD864;
+  --base-light:#D3AD3E;
+  --border:#8E752D;
+  --base-dark:#5A533E;
+  --text-bg:#020202;
+}
+
 .background-image {
   width: 100%;
   height: 100%;

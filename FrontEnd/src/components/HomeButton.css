@@ -38,7 +38,7 @@
     width: 50%;
     height: 50%;
   color: var(--text-color);
-  background: color-mix(in srgb, var(--base-light) 50%, transparent);
+  background: color-mix(in srgb, var(--base-light) 70%, var(--text-bg) 30%);
   box-shadow: 0 0 20px #C8C8C8;
   letter-spacing: 0.5px;
   border-radius: 5px;

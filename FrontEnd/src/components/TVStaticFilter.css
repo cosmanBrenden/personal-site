@@ -68,10 +68,10 @@
   bottom: 0;
   pointer-events: none;
   opacity: 50%;
-  background-color: rgb(75, 75, 75);
-  background-image: radial-gradient(
+  background-color: var(--base-light);
+  /* background-image: radial-gradient(
     color-mix(in srgb, var(--base-light) 75%, transparent), rgb(75, 75, 75) 160%
-  );
+  ); */
   /* background-color: color-mix(in srgb, var(--base-light) 30%, transparent);  */
   z-index: 9997; 
   cursor: pointer; 

@@ -2,7 +2,7 @@
   width: 100%;
   height: 100%;
   position: fixed;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .lander-wrapper {
@@ -19,21 +19,20 @@
   fill: color-mix(in srgb, var(--border) 55%, transparent);
   -webkit-text-stroke: 2px #000;
   filter: drop-shadow(0 0 100px color-mix(in srgb, var(--border) 25%, transparent));
-  position: absolute;
+  position: relative;
   top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
   white-space: nowrap;
   z-index: 2;
   text-shadow: 0 0 10px #C8C8C8;
+  text-align: center;
 }
 
 .lander-button-container {
   position: relative;
   width: 100%;
   /* top: calc(clamp(80px, 12.5vw, 240px) + 40px + 20px); */
-  top:calc(50% + 40px + 20px);
-  transform: translateY(-50%);
+  /* top:calc(50% + 40px + 20px); */
+  /* transform: translateY(-50%); */
   left: 0;
   text-align: center; /* Centers inline/inline-block children */
 }
@@ -58,10 +57,9 @@
   }
 } */
 
-@media (max-height: 768px) {
-  .lander-button-container{
-    top:calc(60% + 40px + 20px);
-    transform: translateY(-50%);
+@media (max-width: 600px) {
+  .blog-title{
+    top:0px;
   }
 }
 

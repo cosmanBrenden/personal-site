@@ -19,10 +19,15 @@ function App() {
   const [postReads, setPostReads] = useState(new Map())
   const [titleCache, setTitleCache] = useState(new Map())
   const [tagCache, setTagCache] = useState(new Map())
+  const [palette, setPalette] = useState("green");
 
   const maxCache = 5;
 
   useEffect(() => {
+
+    if(Math.floor(Math.random() * 2) === 1){
+      setPalette("amber")
+    }
     const videoElement = document.createElement('video');
     videoElement.src = videoURL;
     videoElement.preload = 'auto';
@@ -100,7 +105,7 @@ function App() {
 
   return (
     <Router>
-      <div className="app">
+      <div className={`app ${palette}`}>
         {isLoading ? (
           <LoadingWindow/>
         ) : (
