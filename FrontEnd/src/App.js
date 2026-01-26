@@ -9,6 +9,7 @@ import './App.css';
 import LoadingWindow from './components/LoadingWindow';
 import HomeButton from './components/HomeButton';
 import FallbackPage from './components/FallbackPage';
+import GuestBook from './components/Guestbook';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -116,7 +117,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/blog-list" element={<BlogList />} />
               <Route path="/blog/:id" element={<BlogDetail add={handleAddToCache} read={handleReadFromCache}/>} />
-              <Route path="/guestbook-list" element={<>pp</>}/>
+              <Route path="/guestbook" element={<GuestBook />}/>
               <Route path="*" element={<FallbackPage/>}/>
             </Routes>
           </>

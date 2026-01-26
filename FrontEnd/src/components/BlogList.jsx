@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Tile from './Tile';
-import SearchBar from './SearchBar';
+import SearchBar from './InputBar';
 import './BlogList.css';
 import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import DateRangeIcon from '@mui/icons-material/DateRange';

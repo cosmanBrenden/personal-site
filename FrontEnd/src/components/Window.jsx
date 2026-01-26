@@ -13,19 +13,9 @@ const Window = ({returnFunction, innerContent}) => {
             <button className="back-button" onClick={returnFunction}>
                 <ArrowBackIcon/>
             </button>
-
-            {/* <h1 className="blog-detail-title">{blogTitle || "Where do you think you're going?"}</h1>
-            
-            <div 
-                className="blog-detail-content" 
-                dangerouslySetInnerHTML={{
-                __html: innerHTML || fallbackHTML
-                }}
-            />
-            <br></br>
-            <br></br>
-            <div className='blog-detail-content' style={{textAlign: "center"}}>tags: {blogTags}</div> */}
-            {innerContent}
+            <div className="blog-detail-content">
+                {innerContent}
+            </div>
             </div>
         </div>
         </div>

@@ -16,6 +16,8 @@ from file_grabber import FileGrabber
 PORT = 5000
 HOSTNAME = "brendencosman.com"
 
+DEFAULT_NUM_OF_SIGNATURES_TO_GET = 20
+
 """
 Serves the client the file at fp, named with filename
 """
@@ -71,6 +73,22 @@ def get_blog_results(tags):
     except Exception as e:
         print(e)
         traceback.print_tb(e.__traceback__)
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+def get_signatures(num_to_get):
+    try:
+        casted_num = int(num_to_get)
+        message = db.execute(f"select * from guestbook order by time desc limit {casted_num}")
+        message = [{
+            "time": row[0],
+            "name": row[1],
+            "message": row[2]
+        } for row in message]
+        return jsonify(message), 200
+    except:
         return jsonify({
             'status': 'error',
             'message': str(e)
@@ -186,13 +204,22 @@ def getblog(id):
             'message': str(e)
         }), 500
 
-@app.route("/api/tags/<tags>")
+@app.route("/api/tags/<tags>", methods=["GET"])
 def search_by_tag(tags):
     return get_blog_results(tags)
 
-@app.route("/api/tags/")
+@app.route("/api/tags/", methods=["GET"])
 def search_empty():
     return get_blog_results("")
+
+@app.route("/api/readguestbook/")
+def default_num_signatures():
+    return get_signatures(DEFAULT_NUM_OF_SIGNATURES_TO_GET)
+
+@app.route("/api/readguestbook/<num>", methods=["GET"])
+def spec_num_signatures(num):
+    return get_signatures(num)
+
 
 # Runs the app if this script is being run as main
 if __name__ == '__main__':
