@@ -116,6 +116,7 @@ function App() {
               <Route path="/" element={<LandingPage />} />
               <Route path="/blog-list" element={<BlogList />} />
               <Route path="/blog/:id" element={<BlogDetail add={handleAddToCache} read={handleReadFromCache}/>} />
+              <Route path="/guestbook-list" element={<>pp</>}/>
               <Route path="*" element={<FallbackPage/>}/>
             </Routes>
           </>
