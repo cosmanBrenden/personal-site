@@ -271,7 +271,7 @@ def sign_guestbook():
         # Remove SQL injection characters
         
         name = sanitize(name)
-        message = sanitize(name)
+        message = sanitize(message)
         
         id_val = random.randint(0,10000000)
         
