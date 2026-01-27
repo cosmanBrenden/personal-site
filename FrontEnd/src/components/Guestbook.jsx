@@ -97,10 +97,6 @@ const GuestBook = () => {
             try {
                 setIsLoading(true)
                 const req = new Map([["name", nameText],["message", messageText]]);
-                // req.set("name", nameText)
-                // req.set("message", messageText)
-                // console.log(req.get("name"));
-                // console.log(req.get("message"));
                 const res = await sendSignature(req);
                 console.log(res.status)
                 if(!res.status === "success"){
@@ -149,6 +145,7 @@ const GuestBook = () => {
                 <>
                     <div style={{marginBottom:"10px"}}><InputBar cssClass="relative-bar" placeholderText="Name_" barText={nameText} setBarText={setNameText} handleKeyPress={handleKeyPress}/></div>
                     <div style={{marginBottom:"10px"}}><InputBar cssClass="relative-bar" placeholderText="Message_" barText={messageText} setBarText={setMessageText} handleKeyPress={handleKeyPress}/></div>
+                    <div className="guestbook-submit-button-sizing guestbook-background" onClick={handleSubmit}><h3  style={{textAlign: "center", cursor: "default", marginTop: '10px', marginBottom: "10px"}}>Submit</h3></div>
                 </>
                 :
                 <div className="guestbook-block-inputs guestbook-background"><h1>Signature Submitted</h1></div>
@@ -159,8 +156,6 @@ const GuestBook = () => {
                     {signatures.map((signa) => {
                         return(
                             <li className="guestbook-signature-entry">
-                                {/* {`${signa.time} ${signa.name} ${signa.message}`} */}
-                                {/* {`“${signa.message}” - ${signa.name}, ${signa.time}`} */}
                                 <h3 style={{wordWrap:"break-word"}}>{`“${signa.message}”`}</h3>
                                 <p><b><i>{signa.name}</i></b> on {signa.time}</p>
                             </li>

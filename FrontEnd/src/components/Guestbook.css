@@ -39,3 +39,14 @@
     text-align: center;
     margin-bottom: 20px;
 }
+
+.guestbook-submit-button-sizing{
+    width:50% !important;
+    left:25% !important;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.guestbook-submit-button-sizing:hover {
+  transform: scale(1.05) !important;
+}
