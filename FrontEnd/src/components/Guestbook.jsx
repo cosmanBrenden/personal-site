@@ -95,6 +95,7 @@ const GuestBook = () => {
                 return;
             }
             try {
+                setIsLoading(true)
                 const req = new Map([["name", nameText],["message", messageText]]);
                 // req.set("name", nameText)
                 // req.set("message", messageText)
@@ -107,6 +108,7 @@ const GuestBook = () => {
                 }
                 setErrorMsg("Success!")
                 setSignedGuestBook(true)
+                setIsLoading(false);
             } catch (error) {
                 console.error(error)
                 setErrorMsg("Error in sending signature!")
