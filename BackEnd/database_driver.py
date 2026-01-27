@@ -35,8 +35,12 @@ class DatabaseDriver:
 
     def execute(self, query:str):
         self.cur.execute(query)
-        return self.cur.fetchall()
-    
+        try:   
+            self.conn.commit()
+            return self.cur.fetchall()
+        except:
+            return None
+
     def close(self):
         if self.conn is not None:
             self.cur.close()

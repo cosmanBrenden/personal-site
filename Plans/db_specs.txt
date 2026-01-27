@@ -19,7 +19,7 @@ blogs = {
     title: str 
     description: str
     tags: str
-    date: datetime
+    date: timestamptz
     path_to_html: str //will be /api/content/<some-filename>
 }
 
@@ -27,3 +27,12 @@ any images will put src=/api/content/<some-filename>
 
 
 insert into blogs (id, title, description, tags, date, path) values ('aboutme', 'About Me', 'Find out about me!', ARRAY['aboutme'], NOW(), '/api/content/aboutme.html');
+
+
+// Have the back end delete the oldest once 1000 guestbook entries reached.
+guestbook = {
+  id: str prim key,
+  time: timestamptz ,
+  name: str (limit 30 chars)
+  message: str (limit 200 chars)
+}

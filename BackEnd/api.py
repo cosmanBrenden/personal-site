@@ -5,6 +5,7 @@ from flask import Flask, send_from_directory, send_file, jsonify, redirect, requ
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
+import random
 import sys
 import time
 import traceback
@@ -15,6 +16,15 @@ from file_grabber import FileGrabber
 
 PORT = 5000
 HOSTNAME = "brendencosman.com"
+
+DEFAULT_NUM_OF_SIGNATURES_TO_GET = 20
+MAX_NAME_LENGTH = 30
+MAX_MESSAGE_LENGTH = 200
+
+def sanitize(s):
+    for char in ["'", "`", ";", "-", "#", "/*", "*/", "\\", ";"]:
+        s = s.replace(char, "")
+    return s
 
 """
 Serves the client the file at fp, named with filename
@@ -34,31 +44,53 @@ def download(fp, filename):
             'message': str(e)
         }), 500
 
+
 def get_blog_results(tags):
     print(f"Searching with tags '{tags}'")
-    tags = tags.replace("'", "")
+    # First, validate and sanitize the tags
     tags = tags.split(",")
-    incl_str = ""
-    excl_str = ""
+    
+    incl_tags = []
+    excl_tags = []
+    
     for tag in tags:
-        if(tag != ""):
-            if(tag[0] == "-"):
-                excl_str += f"'{tag[1:]}',"
+        tag = tag.strip()
+        if tag != "":
+            # Validate tag format - only allow alphanumeric, spaces, and hyphens
+            if not all(c.isalnum() or c.isspace() or c == '-' for c in tag.lstrip('-')):
+                # Reject invalid tags instead of trying to escape them
+                return jsonify({
+                    'status': 'error',
+                    'message': 'Invalid tag format'
+                }), 400
+            
+            if tag[0] == "-":
+                excl_tags.append(sanitize(tag[1:]))
             else:
-                incl_str += f"'{tag}',"
-
-    incl_str = incl_str[:len(incl_str)-1]
-    excl_str = excl_str[:len(excl_str)-1]
+                incl_tags.append(sanitize(tag))
+    
     try:
-        if(incl_str == "" and excl_str == ""):
-            message = db.execute(f"select * from blogs;")
-        elif(incl_str != "" and excl_str == ""):
+        # Escape each tag by doubling single quotes and wrapping in quotes
+        def escape_tags(tag_list):
+            escaped = []
+            for tag in tag_list:
+                # Double any single quotes for SQL escaping
+                escaped_tag = tag.replace("'", "''")
+                escaped.append(f"'{escaped_tag}'")
+            return ",".join(escaped)
+        
+        incl_str = escape_tags(incl_tags)
+        excl_str = escape_tags(excl_tags)
+        
+        if not incl_tags and not excl_tags:
+            message = db.execute("select * from blogs;")
+        elif incl_tags and not excl_tags:
             message = db.execute(f"select * from blogs where ARRAY[{incl_str}] <@ tags;")
-        elif(incl_str == "" and excl_str != ""):
+        elif not incl_tags and excl_tags:
             message = db.execute(f"select * from blogs where not( ARRAY[{excl_str}] && tags);")
         else:
             message = db.execute(f"select * from blogs where ARRAY[{incl_str}] <@ tags and not( ARRAY[{excl_str}] && tags);")
-        # { id: 0, title: 'Lorem ipsum 0', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' , date: 1691622800}
+        
         message = [{
             "id": row[0],
             "title": row[1],
@@ -71,6 +103,22 @@ def get_blog_results(tags):
     except Exception as e:
         print(e)
         traceback.print_tb(e.__traceback__)
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
+def get_signatures(num_to_get):
+    try:
+        casted_num = int(num_to_get) # Will throw error if NaN
+        message = db.execute(f"select time, name, message from guestbook order by time desc limit {casted_num}")
+        message = [{
+            "time": row[0],
+            "name": row[1],
+            "message": row[2]
+        } for row in message]
+        return jsonify(message), 200
+    except Exception as e:
         return jsonify({
             'status': 'error',
             'message': str(e)
@@ -167,6 +215,7 @@ def download_bg():
 @app.route("/api/blog/<id>", methods=["GET"])
 def getblog(id):
     print(f"Getting blog: {id}")
+    id = sanitize(id)
     try:
         message = db.execute(f"select * from blogs where id in ('{id}');")
         message = [{
@@ -186,13 +235,60 @@ def getblog(id):
             'message': str(e)
         }), 500
 
-@app.route("/api/tags/<tags>")
+@app.route("/api/tags/<tags>", methods=["GET"])
 def search_by_tag(tags):
     return get_blog_results(tags)
 
-@app.route("/api/tags/")
+@app.route("/api/tags/", methods=["GET"])
 def search_empty():
     return get_blog_results("")
+
+@app.route("/api/readguestbook/")
+def default_num_signatures():
+    return get_signatures(DEFAULT_NUM_OF_SIGNATURES_TO_GET)
+
+@app.route("/api/readguestbook/<num>", methods=["GET"])
+def spec_num_signatures(num):
+    return get_signatures(num)
+
+@app.route("/api/signguestbook/", methods=["POST"])
+def sign_guestbook():
+    # Arbitrary delay
+    time.sleep(0.1)
+    try:
+        req_msg = request.get_json()
+        if not req_msg:
+            print("Got improperly formatted message")
+            print(str(request.url))
+            return jsonify({
+                "type": "exception", 
+                "content": "No JSON data provided"
+            }), 400
+
+        name = req_msg["name"][:MAX_NAME_LENGTH]
+        message = req_msg["message"][:MAX_MESSAGE_LENGTH]
+        
+        # Remove SQL injection characters
+        
+        name = sanitize(name)
+        message = sanitize(name)
+        
+        id_val = random.randint(0,10000000)
+        
+        db.execute(f"insert into guestbook (id, time, name, message) values ('{id_val}', NOW(), '{name}', '{message}');")
+        return jsonify({
+            'status': 'success',
+        }), 200
+        
+
+    except Exception as e:
+        traceback.print_tb(e.__traceback__)
+        print(str(e))
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+
 
 # Runs the app if this script is being run as main
 if __name__ == '__main__':

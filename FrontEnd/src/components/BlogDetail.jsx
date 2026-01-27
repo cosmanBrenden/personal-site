@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
-import './BlogDetail.css';
+// import './Window.css';
+import Window from './Window';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LoadingWindow from './LoadingWindow';
 
@@ -104,32 +105,19 @@ const BlogDetail = ({add, read}) => {
     navigate(`/blog-list${callback}`);
   };
 
+  // Loading view
   if (isLoading && !error) {
-    return (
-      <div className="blog-detail-page">
-        <div className='blog-detail-glow'/>
-        <div className="blog-window-overlay">
-          <div className="blog-window">
-            <button className="back-button" onClick={handleBackClick}>
-              <ArrowBackIcon/>
-            </button>
-            <LoadingWindow text={"Buckle Your Seatbelts..."}/>
-          </div>
-        </div>
-      </div>
+    return(
+      <Window returnFunction={handleBackClick} innerContent={
+        <LoadingWindow text={"Buckle Your Seatbelts..."}/>
+      }/>
     );
   }
-
-  return (
-    <div className="blog-detail-page">
-      <div className='blog-detail-glow'/>
-      <div className="blog-window-overlay">
-        <div className="blog-window">
-          <button className="back-button" onClick={handleBackClick}>
-            <ArrowBackIcon/>
-          </button>
-
-          <h1 className="blog-detail-title">{blogTitle || "Where do you think you're going?"}</h1>
+  // Loaded content view
+  return(
+    <Window returnFunction={handleBackClick} title={blogTitle} innerContent={
+      <>
+        {/* <h1 className="blog-detail-title">{blogTitle || "Where do you think you're going?"}</h1> */}
           
           <div 
             className="blog-detail-content" 
@@ -140,10 +128,9 @@ const BlogDetail = ({add, read}) => {
           <br></br>
           <br></br>
           <div className='blog-detail-content' style={{textAlign: "center"}}>tags: {blogTags}</div>
-        </div>
-      </div>
-    </div>
-  );
+      </>
+    }/>
+  )
 };
 
 export default BlogDetail;
