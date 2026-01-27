@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Tile from './Tile';
-import SearchBar from './InputBar';
+import InputBar from './InputBar';
 import './BlogList.css';
 import SortByAlphaIcon from '@mui/icons-material/SortByAlpha';
 import DateRangeIcon from '@mui/icons-material/DateRange';
@@ -131,7 +131,7 @@ const BlogList = () => {
   return (
     <div className="blog-list-page">
       <HomeButton/>
-      <SearchBar
+      <InputBar
         barText={barText}
         setBarText={setBarText}
         handleKeyPress={handleKeyPress}

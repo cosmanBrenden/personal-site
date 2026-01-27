@@ -40,7 +40,7 @@ const LandingPage = () => {
           <Tile
             height='124px'
             fixedWidth={false}
-            post={{title:"Guestbook"}}
+            post={{title:"Guest Book"}}
             clickFunc={() => navigate('/guestbook')}
           />
         </div>

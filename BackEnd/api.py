@@ -5,6 +5,7 @@ from flask import Flask, send_from_directory, send_file, jsonify, redirect, requ
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import os
+import random
 import sys
 import time
 import traceback
@@ -17,6 +18,8 @@ PORT = 5000
 HOSTNAME = "brendencosman.com"
 
 DEFAULT_NUM_OF_SIGNATURES_TO_GET = 20
+MAX_NAME_LENGTH = 30
+MAX_MESSAGE_LENGTH = 200
 
 """
 Serves the client the file at fp, named with filename
@@ -79,16 +82,17 @@ def get_blog_results(tags):
         }), 500
 
 def get_signatures(num_to_get):
+    time.sleep(2)
     try:
         casted_num = int(num_to_get)
-        message = db.execute(f"select * from guestbook order by time desc limit {casted_num}")
+        message = db.execute(f"select time, name, message from guestbook order by time desc limit {casted_num}")
         message = [{
             "time": row[0],
             "name": row[1],
             "message": row[2]
         } for row in message]
         return jsonify(message), 200
-    except:
+    except Exception as e:
         return jsonify({
             'status': 'error',
             'message': str(e)
@@ -219,6 +223,35 @@ def default_num_signatures():
 @app.route("/api/readguestbook/<num>", methods=["GET"])
 def spec_num_signatures(num):
     return get_signatures(num)
+
+@app.route("/api/signguestbook/", methods=["POST"])
+def sign_guestbook():
+    try:
+        req_msg = request.get_json()
+        if not req_msg:
+            print("Got improperly formatted message")
+            print(str(request.url))
+            return jsonify({
+                "type": "exception", 
+                "content": "No JSON data provided"
+            }), 400
+
+        name = req_msg["name"][:MAX_NAME_LENGTH].replace("'", "")
+        message = req_msg["message"][:MAX_MESSAGE_LENGTH].replace("'", "")
+        
+        db.execute(f"insert into guestbook (id, time, name, message) values ('{str(random.randint(0,1000000))}', NOW(), '{name}', '{message}');")
+        return jsonify({
+            'status': 'success',
+        }), 200
+        
+
+    except Exception as e:
+        traceback.print_tb(e.__traceback__)
+        print(str(e))
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
 
 
 # Runs the app if this script is being run as main

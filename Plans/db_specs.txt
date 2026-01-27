@@ -31,7 +31,8 @@ insert into blogs (id, title, description, tags, date, path) values ('aboutme', 
 
 // Have the back end delete the oldest once 1000 guestbook entries reached.
 guestbook = {
-  time: timestamptz prim key,
+  id: str prim key,
+  time: timestamptz ,
   name: str (limit 30 chars)
   message: str (limit 200 chars)
 }
