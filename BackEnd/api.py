@@ -44,47 +44,6 @@ def download(fp, filename):
             'message': str(e)
         }), 500
 
-# def get_blog_results(tags):
-#     print(f"Searching with tags '{tags}'")
-#     tags = tags.replace("'", "")
-#     tags = tags.split(",")
-#     incl_str = ""
-#     excl_str = ""
-#     for tag in tags:
-#         if(tag != ""):
-#             if(tag[0] == "-"):
-#                 excl_str += f"'{tag[1:]}',"
-#             else:
-#                 incl_str += f"'{tag}',"
-
-#     incl_str = incl_str[:len(incl_str)-1]
-#     excl_str = excl_str[:len(excl_str)-1]
-#     try:
-#         if(incl_str == "" and excl_str == ""):
-#             message = db.execute(f"select * from blogs;")
-#         elif(incl_str != "" and excl_str == ""):
-#             message = db.execute(f"select * from blogs where ARRAY[{incl_str}] <@ tags;")
-#         elif(incl_str == "" and excl_str != ""):
-#             message = db.execute(f"select * from blogs where not( ARRAY[{excl_str}] && tags);")
-#         else:
-#             message = db.execute(f"select * from blogs where ARRAY[{incl_str}] <@ tags and not( ARRAY[{excl_str}] && tags);")
-#         # { id: 0, title: 'Lorem ipsum 0', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', tags: 'banana rant, weekly' , date: 1691622800}
-#         message = [{
-#             "id": row[0],
-#             "title": row[1],
-#             "description": row[2],
-#             "tags": row[3],
-#             "date": row[4].timestamp(),
-#             "path": row[5]
-#         } for row in message]
-#         return jsonify(message), 200
-#     except Exception as e:
-#         print(e)
-#         traceback.print_tb(e.__traceback__)
-#         return jsonify({
-#             'status': 'error',
-#             'message': str(e)
-#         }), 500
 
 def get_blog_results(tags):
     print(f"Searching with tags '{tags}'")
@@ -329,35 +288,6 @@ def sign_guestbook():
             'status': 'error',
             'message': str(e)
         }), 500
-# def sign_guestbook():
-#     # Arbitrary delay
-#     time.sleep(0.1)
-#     try:
-#         req_msg = request.get_json()
-#         if not req_msg:
-#             print("Got improperly formatted message")
-#             print(str(request.url))
-#             return jsonify({
-#                 "type": "exception", 
-#                 "content": "No JSON data provided"
-#             }), 400
-
-#         name = req_msg["name"][:MAX_NAME_LENGTH].replace("'", "")
-#         message = req_msg["message"][:MAX_MESSAGE_LENGTH].replace("'", "")
-#         id_val = random.randint(0,10000000)
-#         db.execute(f"insert into guestbook (id, time, name, message) values ('{id_val}', NOW(), '{name}', '{message}');")
-#         return jsonify({
-#             'status': 'success',
-#         }), 200
-        
-
-#     except Exception as e:
-#         traceback.print_tb(e.__traceback__)
-#         print(str(e))
-#         return jsonify({
-#             'status': 'error',
-#             'message': str(e)
-#         }), 500
 
 
 # Runs the app if this script is being run as main
