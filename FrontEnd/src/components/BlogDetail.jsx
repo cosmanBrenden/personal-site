@@ -115,9 +115,9 @@ const BlogDetail = ({add, read}) => {
   }
   // Loaded content view
   return(
-    <Window returnFunction={handleBackClick} innerContent={
+    <Window returnFunction={handleBackClick} title={blogTitle} innerContent={
       <>
-        <h1 className="blog-detail-title">{blogTitle || "Where do you think you're going?"}</h1>
+        {/* <h1 className="blog-detail-title">{blogTitle || "Where do you think you're going?"}</h1> */}
           
           <div 
             className="blog-detail-content" 

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Window from "./Window";
 import LoadingWindow from "./LoadingWindow";
 import InputBar from "./InputBar";
+import './Guestbook.css';
 
 async function getSignatures(blog_id=null) {
     const insertVal = blog_id !== null ? blog_id : "";
@@ -40,7 +41,7 @@ const GuestBook = () => {
     const [signedGuestBook, setSignedGuestBook] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState(false);
-    const [signatures, setSignatures] = useState([]);
+    const [signatures, setSignatures] = useState([...[]]);
     // const [signature, setSignature] = useState(new Map());
     const [nameText, setNameText] = useState("")
     const [messageText, setMessageText] = useState("");
@@ -49,34 +50,15 @@ const GuestBook = () => {
         navigate(`/`);
     };
 
-    useEffect(() => {
-    
-        // If not in cache, fetch metadata then content
-        const fetchSignatures = async () => {
+    const fetchSignatures = async () => {
           setIsLoading(true);
           setErrorMsg(null);
     
           try {
-            // Step 1: Fetch blog metadata
             const result = await getSignatures();
-            
-            // setSignatures([]);
-    
-            // // Step 2: Fetch blog content
-            // const contentResponse = await fetch(contentURL);
-            // if (!contentResponse.ok) {
-            //   throw new Error(`Failed to fetch content: ${contentResponse.status}`);
-            // }
-            
-            // const contentText = await contentResponse.text();
-            // const sanitizedContent = DOMPurify.sanitize(contentText);
-            // const sanitizedContent = contentText;
-            
-            // Add to cache and update state
-            // add(blogID, sanitizedContent, title, tags.toString());
-            for(let i = 0; i < result.length; i++){
-                signatures.push(result[i]);
-            }
+            console.log(`Got result: ${result}`);
+
+            setSignatures([...result])
 
             setIsLoading(false);
             
@@ -86,9 +68,19 @@ const GuestBook = () => {
             setIsLoading(false);
           }
         };
-    
+
+    useEffect(() => {
         fetchSignatures();
       }, []);
+
+    useEffect(() => {
+        if(signedGuestBook){
+            setTimeout(() => {
+                setSignatures([...[]])
+                fetchSignatures();
+            }, 1000)
+        }
+    }, [signedGuestBook])
     
     useEffect(() => {
         setTimeout(() => {
@@ -142,38 +134,37 @@ const GuestBook = () => {
     else if(errorMsg){
         return(
             <Window returnFunction={handleBackClick} innerContent={
-                <div>
-                    {errorMsg}
-                </div>
-            }/>
-        );
-    }
-
-    else if(signedGuestBook){
-        return(
-            <Window returnFunction={handleBackClick} innerContent={
-                <div>
-                    You're done here
-                </div>
+                <LoadingWindow text={errorMsg}/>
             }/>
         );
     }
 
     return(
-        <Window returnFunction={handleBackClick} innerContent={
-            <div>
-                <InputBar cssClass="relative-bar" placeholderText="Name_" barText={nameText} setBarText={setNameText} handleKeyPress={handleKeyPress}/>
-                <InputBar cssClass="relative-bar" placeholderText="Message_" barText={messageText} setBarText={setMessageText} handleKeyPress={handleKeyPress}/>
-                {signatures.map((signa) => {
-                    console.log("doing something")
-                    return(
-                        <div>
-                            {signa.time}
-                            {signa.name}
-                            {signa.message}
-                        </div>
-                    )
-                })}
+        <Window returnFunction={handleBackClick} title={"Guest Book"} innerContent={
+            <div className="guestbook-wrapper">
+                {
+                !signedGuestBook ?
+                <>
+                    <div style={{marginBottom:"10px"}}><InputBar cssClass="relative-bar" placeholderText="Name_" barText={nameText} setBarText={setNameText} handleKeyPress={handleKeyPress}/></div>
+                    <div style={{marginBottom:"10px"}}><InputBar cssClass="relative-bar" placeholderText="Message_" barText={messageText} setBarText={setMessageText} handleKeyPress={handleKeyPress}/></div>
+                </>
+                :
+                <div className="guestbook-block-inputs guestbook-background"><h1>Signature Submitted</h1></div>
+                }
+                <h2 style={{textAlign: "center"}}>Guest Book Signatures</h2>
+                <ul className="guestbook-signatures guestbook-background">
+                    
+                    {signatures.map((signa) => {
+                        return(
+                            <li className="guestbook-signature-entry">
+                                {/* {`${signa.time} ${signa.name} ${signa.message}`} */}
+                                {/* {`“${signa.message}” - ${signa.name}, ${signa.time}`} */}
+                                <h3 style={{wordWrap:"break-word"}}>{`“${signa.message}”`}</h3>
+                                <p><b><i>{signa.name}</i></b> on {signa.time}</p>
+                            </li>
+                        )
+                    })}
+                </ul>
             </div>
         }/>
     );

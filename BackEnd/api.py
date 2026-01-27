@@ -82,7 +82,6 @@ def get_blog_results(tags):
         }), 500
 
 def get_signatures(num_to_get):
-    time.sleep(2)
     try:
         casted_num = int(num_to_get)
         message = db.execute(f"select time, name, message from guestbook order by time desc limit {casted_num}")
