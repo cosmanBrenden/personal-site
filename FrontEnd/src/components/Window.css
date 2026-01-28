@@ -132,6 +132,19 @@
   margin: 1rem 0 0.5rem; /* Reduced spacing */
 }
 
+@keyframes periodicShake {
+  0%, 90%, 100% { transform: rotate(0deg); }
+  92% { transform: rotate(16deg); }
+  94% { transform: rotate(-16deg); }
+  96% { transform: rotate(12deg); }
+  98% { transform: rotate(-12deg); }
+}
+
+.shaking-element {
+  animation: periodicShake 3s infinite;
+  /* Will shake quickly at the end of each 3-second cycle */
+}
+
 /* Desktop styles */
 @media (min-width: 768px) {
   .blog-detail-title {
