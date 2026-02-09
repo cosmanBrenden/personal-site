@@ -289,6 +289,18 @@ def sign_guestbook():
             'message': str(e)
         }), 500
 
+@app.route("/feed", methods=["GET"])
+def get_feed():
+    try:
+        fp, fname = fg.get_feed()
+        return download(fp,fname)
+    except Exception as e:
+        traceback.print_tb(e.__traceback__)
+        return jsonify({
+            'status': 'error',
+            'message': str(e)
+        }), 500
+        
 
 # Runs the app if this script is being run as main
 if __name__ == '__main__':

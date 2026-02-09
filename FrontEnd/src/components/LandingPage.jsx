@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LandingPage.css';
 import Tile from './Tile';
+import RssButton from './RssButton';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -11,7 +12,9 @@ const LandingPage = () => {
       <div className='lander-wrapper'>
 
       <h1 className="blog-title">Brenden's Blog</h1>
+      
       <div className='lander-button-container'>
+        
         <div className='button-wrapper'>
           <Tile
             height='124px'
@@ -43,6 +46,9 @@ const LandingPage = () => {
             post={{title:"Guest Book"}}
             clickFunc={() => navigate('/guestbook')}
           />
+        </div>
+        <div className='button-wrapper'>
+          <RssButton showLabel={true}></RssButton>
         </div>
         </div>
       </div>
