@@ -3,8 +3,9 @@ import io
 import random
 
 DEFAULT_DIR = "./content"
-VALID_FTYPES = {"jpg", "jpeg", "png", "mp4", "mp3", "html", "webm", "gif", "js"}
+VALID_FTYPES = {"jpg", "jpeg", "png", "mp4", "mp3", "html", "webm", "gif", "js", "xml"}
 BACKGROUND_LIST_FP = "./backgrounds.txt"
+FEED_FNAME = "feed.xml"
 
 class FileGrabber:
     def __init__(self):
@@ -40,3 +41,6 @@ class FileGrabber:
         
         return self.get_filepath(fname), fname
 
+
+    def get_feed(self):
+        return self.get_filepath(FEED_FNAME), FEED_FNAME
