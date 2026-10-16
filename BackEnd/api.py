@@ -10,12 +10,13 @@ import sys
 import time
 import traceback
 from werkzeug.serving import run_simple
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 from database_driver import DatabaseDriver
 from file_grabber import FileGrabber
 
 PORT = 5000
-HOSTNAME = "brendencosman.com"
+HOSTNAME = "blog.brendencosman.com"
 
 DEFAULT_NUM_OF_SIGNATURES_TO_GET = 20
 MAX_NAME_LENGTH = 30
@@ -156,13 +157,13 @@ limiter = Limiter(
 )
 
 
-@app.before_request
-def redirect_to_www():
-    host = request.host
-    scheme = request.scheme
+# @app.before_request
+# def redirect_to_www():
+    # host = request.host
+    # scheme = request.scheme
     
-    if host == HOSTNAME or scheme == 'http':
-        return redirect(f'https://www.{HOSTNAME}{request.full_path}', code=301)
+    # if host == HOSTNAME or scheme == 'http':
+        # return redirect(f'https://{HOSTNAME}{request.full_path}', code=301)
 
 """
 Serve React App
@@ -304,7 +305,12 @@ def get_feed():
 
 # Runs the app if this script is being run as main
 if __name__ == '__main__':
-    run_simple("0.0.0.0", PORT, app, threaded=True, ssl_context=('cert.pem', 'key.pem'))
+    # run_simple("0.0.0.0", PORT, app, threaded=True, ssl_context=('cert.pem', 'key.pem'))
+    run_simple(
+            "127.0.0.1", 
+            PORT, 
+            ProxyFix(app, x_for=1, x_proto=1, x_host=1, x_port=1), 
+            threaded=True)
     try:
         db.close()
 
